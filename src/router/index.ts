@@ -1,9 +1,11 @@
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
-import Recommend from '../views/Recommend.vue';
-import Singer from '../views/Singer.vue';
-import Rank from '../views/Rank.vue';
-import Search from '../views/Search.vue';
+
+// 路由懒加载
+const Recommend = () => import('../views/Recommend.vue');
+const Singer = () => import('../views/Singer.vue');
+const Rank = () => import('../views/Rank.vue');
+const Search = () => import('../views/Search.vue');
 
 Vue.use(VueRouter);
 
