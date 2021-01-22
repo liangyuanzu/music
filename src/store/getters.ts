@@ -6,4 +6,8 @@ export default {
   personalized(state): Array<object> {
     return state.personalized;
   },
+
+  newAlbums(state): Array<object> {
+    return state.newAlbums.splice(0, 6);
+  },
 };

@@ -23,3 +23,10 @@ export function getPersonalized(limit: number): Promise<any> {
     },
   });
 }
+
+/**
+ * 获取最新专辑
+ * */
+export function getNewAlbum(): Promise<any> {
+  return $request('/api/album/newest', {});
+}
