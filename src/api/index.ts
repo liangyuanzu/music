@@ -11,3 +11,15 @@ export function getBanner(type: number): Promise<any> {
     },
   });
 }
+
+/**
+ * 获取推荐歌单
+ * @param {number} limit 取出数量 , 默认为 30
+ * */
+export function getPersonalized(limit: number): Promise<any> {
+  return $request('/api/personalized', {
+    params: {
+      limit,
+    },
+  });
+}
