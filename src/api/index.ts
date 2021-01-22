@@ -30,3 +30,15 @@ export function getPersonalized(limit: number): Promise<any> {
 export function getNewAlbum(): Promise<any> {
   return $request('/api/album/newest', {});
 }
+
+/**
+ * 获取最新音乐
+ * @param {number} limit 取出数量 , 默认为 10
+ * */
+export function getNewSong(limit?: number): Promise<any> {
+  return $request('/api/personalized/newsong', {
+    params: {
+      limit,
+    },
+  });
+}

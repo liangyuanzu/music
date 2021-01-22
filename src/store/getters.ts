@@ -10,4 +10,8 @@ export default {
   newAlbums(state): Array<object> {
     return state.newAlbums.splice(0, 6);
   },
+
+  newSongs(state): Array<object> {
+    return state.newSongs;
+  },
 };
