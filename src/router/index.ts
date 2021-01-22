@@ -3,6 +3,7 @@ import VueRouter, { RouteConfig } from 'vue-router';
 
 // 路由懒加载
 const Recommend = () => import('../views/Recommend.vue');
+const Detail = () => import('../views/Detail.vue');
 const Singer = () => import('../views/Singer.vue');
 const Rank = () => import('../views/Rank.vue');
 const Search = () => import('../views/Search.vue');
@@ -11,7 +12,16 @@ Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
   { path: '/', redirect: '/recommend' },
-  { path: '/recommend', component: Recommend },
+  {
+    path: '/recommend',
+    component: Recommend,
+    children: [
+      {
+        path: 'detail/:id',
+        component: Detail,
+      },
+    ],
+  },
   { path: '/singer', component: Singer },
   { path: '/rank', component: Rank },
   { path: '/search', component: Search },

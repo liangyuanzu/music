@@ -5,7 +5,12 @@
         <h3>{{ title }}</h3>
       </div>
       <div class="personalized-list">
-        <div class="item" v-for="item in personalized" :key="item.id">
+        <div
+          class="item"
+          v-for="item in personalized"
+          :key="item.id"
+          @click="selectItem(item.id)"
+        >
           <img v-lazy="item.picUrl" />
           <p>{{ item.name }}</p>
         </div>
@@ -15,15 +20,27 @@
 </template>
 
 <script lang='ts'>
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Prop, Emit, Vue } from 'vue-property-decorator';
 
 @Component({
   name: 'Personalized',
 })
 export default class Personalized extends Vue {
+  id: number;
+
   @Prop({ default: [] }) readonly personalized: Array<object>;
 
   @Prop({ default: '' }) readonly title: string;
+
+  @Emit('select')
+  send() {
+    return this.id;
+  }
+
+  selectItem(id: number) {
+    this.id = id;
+    this.send();
+  }
 }
 </script>
 

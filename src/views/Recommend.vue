@@ -7,15 +7,18 @@
           <Personalized
             :personalized="personalized"
             title="推荐歌单"
+            @select="fatherSelectItem"
           ></Personalized>
           <Personalized
             :personalized="newAlbums"
             title="最新专辑"
+            @select="fatherSelectItem"
           ></Personalized>
           <SongList :newSongs="newSongs"></SongList>
         </div>
       </ScrollView>
     </div>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -33,31 +36,37 @@ import ScrollView from '../components/ScrollView.vue';
     Banner,
     Personalized,
     SongList,
-    ScrollView
+    ScrollView,
   },
 })
 export default class Recommend extends Vue {
-  @Getter('banners') banners
+  @Getter('banners') banners;
 
-  @Getter('personalized') personalized
+  @Getter('personalized') personalized;
 
-  @Getter('newAlbums') newAlbums
+  @Getter('newAlbums') newAlbums;
 
-  @Getter('newSongs') newSongs
+  @Getter('newSongs') newSongs;
 
-  @Action('getBannerData') getBanner
+  @Action('getBannerData') getBanner;
 
-  @Action('getPersonalizedData') getPersonalized
+  @Action('getPersonalizedData') getPersonalized;
 
-  @Action('getNewAlbumData') getNewAlbum
+  @Action('getNewAlbumData') getNewAlbum;
 
-  @Action('getNewSongData') getNewSong
+  @Action('getNewSongData') getNewSong;
 
   created() {
     this.getBanner(2);
     this.getPersonalized(6);
     this.getNewAlbum();
     this.getNewSong();
+  }
+
+  fatherSelectItem(id: number) {
+    this.$router.push({
+      path: `/recommend/detail/${id}`,
+    });
   }
 }
 </script>
