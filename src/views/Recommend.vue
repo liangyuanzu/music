@@ -1,9 +1,21 @@
 <template>
-  <div>
-    <Banner :banners="banners"></Banner>
-    <Personalized :personalized="personalized" title="推荐歌单"></Personalized>
-    <Personalized :personalized="newAlbums" title="最新专辑"></Personalized>
-    <SongList :newSongs="newSongs"></SongList>
+  <div class="recommend">
+    <div class="recommend-warpper">
+      <ScrollView>
+        <div>
+          <Banner :banners="banners"></Banner>
+          <Personalized
+            :personalized="personalized"
+            title="推荐歌单"
+          ></Personalized>
+          <Personalized
+            :personalized="newAlbums"
+            title="最新专辑"
+          ></Personalized>
+          <SongList :newSongs="newSongs"></SongList>
+        </div>
+      </ScrollView>
+    </div>
   </div>
 </template>
 
@@ -13,13 +25,15 @@ import { Getter, Action } from 'vuex-class';
 import Banner from '../components/Banner.vue';
 import Personalized from '../components/Personalized.vue';
 import SongList from '../components/SongList.vue';
+import ScrollView from '../components/ScrollView.vue';
 
 @Component({
   name: 'Recommend',
   components: {
     Banner,
     Personalized,
-    SongList
+    SongList,
+    ScrollView
   },
 })
 export default class Recommend extends Vue {
@@ -49,4 +63,16 @@ export default class Recommend extends Vue {
 </script>
 
 <style lang='scss' scoped>
+.recommend {
+  position: fixed;
+  top: 184px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  .recommend-warpper {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+}
 </style>
