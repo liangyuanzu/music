@@ -1,6 +1,7 @@
 <template>
   <div class="detail">
     <SubHeader :title="detail.name"></SubHeader>
+    <DetailTop :src="detail.coverImgUrl"></DetailTop>
   </div>
 </template>
 
@@ -8,11 +9,13 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { Getter, Action } from 'vuex-class';
 import SubHeader from '../components/SubHeader.vue';
+import DetailTop from '../components/DetailTop.vue';
 
 @Component({
   name: 'Detail',
   components: {
     SubHeader,
+    DetailTop,
   },
 })
 export default class Detail extends Vue {
