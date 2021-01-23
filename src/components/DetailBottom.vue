@@ -20,7 +20,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
   name: 'DetailBottom',
 })
 export default class DetailBottom extends Vue {
-  @Prop({ default: {} }) readonly playlist: object;
+  @Prop({ default: () => [] }) readonly playlist: Array<object>;
 }
 </script>
 

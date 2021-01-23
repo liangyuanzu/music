@@ -18,7 +18,10 @@
         </div>
       </ScrollView>
     </div>
-    <router-view></router-view>
+
+    <transition>
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 
@@ -83,5 +86,24 @@ export default class Recommend extends Vue {
     height: 100%;
     overflow: hidden;
   }
+}
+
+.v-enter {
+  transform: translateX(100%);
+}
+.v-enter-to {
+  transform: translateX(0%);
+}
+.v-enter-active {
+  transition: transform 0.5s;
+}
+.v-leave {
+  transform: translateX(0%);
+}
+.v-leave-to {
+  transform: translateX(100%);
+}
+.v-leave-active {
+  transition: transform 0.5s;
 }
 </style>
