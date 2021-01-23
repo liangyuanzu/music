@@ -42,3 +42,15 @@ export function getNewSong(limit?: number): Promise<any> {
     },
   });
 }
+
+/**
+ * 获取歌单详情
+ * @param {number} id 歌单 id
+ * */
+export function getDetail(id: number): Promise<any> {
+  return $request('/api/playlist/detail', {
+    params: {
+      id,
+    },
+  });
+}

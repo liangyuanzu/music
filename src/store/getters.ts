@@ -14,4 +14,8 @@ export default {
   newSongs(state): Array<object> {
     return state.newSongs;
   },
+
+  detail(state): object {
+    return state.detail;
+  },
 };

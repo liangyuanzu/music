@@ -3,4 +3,5 @@ export default {
   personalized: [],
   newAlbums: [],
   newSongs: [],
+  detail: {},
 };

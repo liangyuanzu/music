@@ -1,4 +1,10 @@
-import { SET_BANNERS, SET_PERSONALIZED, SET_NEW_ALBUMS, SET_NEW_SONGS } from './mutations-type';
+import {
+  SET_BANNERS,
+  SET_PERSONALIZED,
+  SET_NEW_ALBUMS,
+  SET_NEW_SONGS,
+  SET_DETAIL,
+} from './mutations-type';
 
 export default {
   [SET_BANNERS](state, list: Array<object>) {
@@ -15,5 +21,9 @@ export default {
 
   [SET_NEW_SONGS](state, list: Array<object>) {
     state.newSongs = list;
+  },
+
+  [SET_DETAIL](state, data: object) {
+    state.detail = data;
   },
 };
