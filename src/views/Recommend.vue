@@ -30,9 +30,9 @@
 <script lang='ts'>
 import { Component, Vue } from 'vue-property-decorator';
 import { Getter, Action } from 'vuex-class';
-import Banner from '../components/Banner.vue';
-import Personalized from '../components/Personalized.vue';
-import SongList from '../components/SongList.vue';
+import Banner from '../components/Recommend/Banner.vue';
+import Personalized from '../components/Recommend/Personalized.vue';
+import SongList from '../components/Recommend/SongList.vue';
 import ScrollView from '../components/ScrollView.vue';
 
 @Component({

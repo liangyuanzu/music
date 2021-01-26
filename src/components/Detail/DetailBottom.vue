@@ -46,7 +46,7 @@ export default class DetailBottom extends Vue {
     .bottom-icon {
       width: 60px;
       height: 60px;
-      @include bg_img('../assets/images/small_play');
+      @include bg_img('../../assets/images/small_play');
       margin-right: 20px;
     }
     .bottom-title {

@@ -1,6 +1,6 @@
 <template>
   <div class="detail">
-    <SubHeader :title="data.title"></SubHeader>
+    <DetailHeader :title="data.title"></DetailHeader>
     <DetailTop :src="data.img" ref="top"></DetailTop>
     <div class="bottom">
       <ScrollView ref="scrollview">
@@ -13,15 +13,15 @@
 <script lang='ts'>
 import { Component, Vue } from 'vue-property-decorator';
 import { Getter, Action } from 'vuex-class';
-import SubHeader from '../components/SubHeader.vue';
-import DetailTop from '../components/DetailTop.vue';
-import DetailBottom from '../components/DetailBottom.vue';
+import DetailHeader from '../components/Detail/DetailHeader.vue';
+import DetailTop from '../components/Detail/DetailTop.vue';
+import DetailBottom from '../components/Detail/DetailBottom.vue';
 import ScrollView from '../components/ScrollView.vue';
 
 @Component({
   name: 'Detail',
   components: {
-    SubHeader,
+    DetailHeader,
     DetailTop,
     DetailBottom,
     ScrollView,

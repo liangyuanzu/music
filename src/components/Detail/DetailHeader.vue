@@ -32,8 +32,8 @@ export default class SubHeader extends Vue {
 </script>
 
 <style lang='scss' scoped>
-@import '../assets/css/variable';
-@import '../assets/css/mixin';
+@import '@/assets/css/variable';
+@import '@/assets/css/mixin';
 
 .header {
   width: 100%;
@@ -50,11 +50,11 @@ export default class SubHeader extends Vue {
   }
 
   .left {
-    @include bg_img('../assets/images/back');
+    @include bg_img('../../assets/images/back');
   }
 
   .right {
-    @include bg_img('../assets/images/more');
+    @include bg_img('../../assets/images/more');
   }
 
   .title {
