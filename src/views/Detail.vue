@@ -68,9 +68,12 @@ export default class Detail extends Vue {
     (this.$refs.scrollview as any).scrolling((offsetY) => {
       if (offsetY < 0) {
         // 向上滚动
-        const blur = (10 * Math.abs(offsetY)) / defaultHeight;
-        // console.log(blur);
-        (this.$refs.top as any).$el.style.filter = `blur(${blur}px)`;
+        // 高斯模糊效果是非常消耗性能的, 不推荐在移动端中使用; 如果非要在移动端中使用, 那么建议只设置一次
+        // const blur = (10 * Math.abs(offsetY)) / defaultHeight;
+        // (this.$refs.top as any).$el.style.filter = `blur(${blur}px)`;
+        // 使用 mask 替换高斯模糊
+        const opacity = Math.abs(offsetY) / defaultHeight;
+        (this.$refs.top as any).changeMask(opacity);
       } else {
         // 向下滚动
         const scale = 1 + offsetY / defaultHeight;
