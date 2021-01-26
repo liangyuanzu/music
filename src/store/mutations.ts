@@ -4,6 +4,7 @@ import {
   SET_NEW_ALBUMS,
   SET_NEW_SONGS,
   SET_DETAIL,
+  SET_ALBUM_DATA,
 } from './mutations-type';
 
 export default {
@@ -25,5 +26,9 @@ export default {
 
   [SET_DETAIL](state, data: object) {
     state.detail = data;
+  },
+
+  [SET_ALBUM_DATA](state, data: object) {
+    state.albumData = data;
   },
 };

@@ -1,10 +1,18 @@
-import { getBanner, getPersonalized, getNewAlbum, getNewSong, getDetail } from '@/api/index';
+import {
+  getBanner,
+  getPersonalized,
+  getNewAlbum,
+  getNewSong,
+  getDetail,
+  getAlbum,
+} from '@/api/index';
 import {
   SET_BANNERS,
   SET_PERSONALIZED,
   SET_NEW_ALBUMS,
   SET_NEW_SONGS,
   SET_DETAIL,
+  SET_ALBUM_DATA,
 } from './mutations-type';
 
 export default {
@@ -31,5 +39,10 @@ export default {
   async getDetailData({ commit }, id: number) {
     const { playlist } = await getDetail(id);
     commit(SET_DETAIL, playlist);
+  },
+
+  async getAlbumData({ commit }, id: number) {
+    const { album, songs } = await getAlbum(id);
+    commit(SET_ALBUM_DATA, { album, songs });
   },
 };

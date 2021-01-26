@@ -32,9 +32,14 @@ export default class Personalized extends Vue {
 
   @Prop({ default: '' }) readonly title: string;
 
+  @Prop({ default: '' }) readonly type: string;
+
   @Emit('select')
   send() {
-    return this.id;
+    return {
+      id: this.id,
+      type: this.type,
+    };
   }
 
   selectItem(id: number) {

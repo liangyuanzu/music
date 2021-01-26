@@ -7,11 +7,13 @@
           <Personalized
             :personalized="personalized"
             title="推荐歌单"
+            type="personalized"
             @select="fatherSelectItem"
           ></Personalized>
           <Personalized
             :personalized="newAlbums"
             title="最新专辑"
+            type="album"
             @select="fatherSelectItem"
           ></Personalized>
           <SongList :newSongs="newSongs"></SongList>
@@ -66,9 +68,9 @@ export default class Recommend extends Vue {
     this.getNewSong();
   }
 
-  fatherSelectItem(id: number) {
+  fatherSelectItem({ id, type }) {
     this.$router.push({
-      path: `/recommend/detail/${id}`,
+      path: `/recommend/detail/${id}/${type}`,
     });
   }
 }

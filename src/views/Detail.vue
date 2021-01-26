@@ -1,10 +1,10 @@
 <template>
   <div class="detail">
-    <SubHeader :title="detail.name"></SubHeader>
-    <DetailTop :src="detail.coverImgUrl" ref="top"></DetailTop>
+    <SubHeader :title="data.title"></SubHeader>
+    <DetailTop :src="data.img" ref="top"></DetailTop>
     <div class="bottom">
       <ScrollView ref="scrollview">
-        <DetailBottom :playlist="detail.tracks"></DetailBottom>
+        <DetailBottom :playlist="data.songs"></DetailBottom>
       </ScrollView>
     </div>
   </div>
@@ -28,12 +28,39 @@ import ScrollView from '../components/ScrollView.vue';
   },
 })
 export default class Detail extends Vue {
+  data = {};
+
   @Getter('detail') detail;
+
+  @Getter('albumData') albumData;
 
   @Action('getDetailData') getDetail;
 
-  created() {
-    this.getDetail(this.$route.params.id);
+  @Action('getAlbumData') getAlbum;
+
+  async created() {
+    switch (this.$route.params.type) {
+      case 'personalized':
+        await this.getDetail(this.$route.params.id);
+        this.data = {
+          title: this.detail.name,
+          img: this.detail.coverImgUrl,
+          songs: this.detail.tracks,
+        };
+        break;
+
+      case 'album':
+        await this.getAlbum(this.$route.params.id);
+        this.data = {
+          title: this.albumData.album.name,
+          img: this.albumData.album.picUrl,
+          songs: this.albumData.songs,
+        };
+        break;
+
+      default:
+        break;
+    }
   }
 
   mounted() {

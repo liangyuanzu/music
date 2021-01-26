@@ -18,4 +18,8 @@ export default {
   detail(state): object {
     return state.detail;
   },
+
+  albumData(state): object {
+    return state.albumData;
+  },
 };

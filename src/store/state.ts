@@ -4,4 +4,5 @@ export default {
   newAlbums: [],
   newSongs: [],
   detail: {},
+  albumData: {},
 };

@@ -54,3 +54,15 @@ export function getDetail(id: number): Promise<any> {
     },
   });
 }
+
+/**
+ * 获取专辑内容
+ * @param {number} id 专辑 id
+ * */
+export function getAlbum(id: number): Promise<any> {
+  return $request('/api/album', {
+    params: {
+      id,
+    },
+  });
+}
