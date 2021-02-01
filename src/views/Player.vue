@@ -1,17 +1,20 @@
 <template>
   <div class="player">
     <PlayerHeader></PlayerHeader>
+    <PlayerMiddle></PlayerMiddle>
   </div>
 </template>
 
 <script lang='ts'>
 import { Component, Vue } from 'vue-property-decorator';
 import PlayerHeader from '../components/Player/PlayerHeader.vue';
+import PlayerMiddle from '../components/Player/PlayerMiddle.vue';
 
 @Component({
   name: 'Player',
   components: {
     PlayerHeader,
+    PlayerMiddle,
   },
 })
 export default class Player extends Vue {}

@@ -27,7 +27,6 @@ export default class PlayerHeader extends Vue {}
   height: 100px;
   display: flex;
   justify-content: space-between;
-  @include bg_color();
 
   .left,
   .right {
