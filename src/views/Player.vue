@@ -2,6 +2,7 @@
   <div class="player">
     <PlayerHeader></PlayerHeader>
     <PlayerMiddle></PlayerMiddle>
+    <PlayerBottom></PlayerBottom>
   </div>
 </template>
 
@@ -9,12 +10,14 @@
 import { Component, Vue } from 'vue-property-decorator';
 import PlayerHeader from '../components/Player/PlayerHeader.vue';
 import PlayerMiddle from '../components/Player/PlayerMiddle.vue';
+import PlayerBottom from '../components/Player/PlayerBottom.vue';
 
 @Component({
   name: 'Player',
   components: {
     PlayerHeader,
     PlayerMiddle,
+    PlayerBottom,
   },
 })
 export default class Player extends Vue {}
