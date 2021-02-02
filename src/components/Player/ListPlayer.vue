@@ -1,5 +1,5 @@
 <template>
-  <div class="list-player">
+  <div class="list-player" v-show="isShow">
     <div class="player-wrapper">
       <div class="player-top">
         <div class="top-left">
@@ -27,7 +27,7 @@
         </ScrollView>
       </div>
       <div class="player-bottom">
-        <p>关闭</p>
+        <p @click.stop="hidden">关闭</p>
       </div>
     </div>
   </div>
@@ -43,7 +43,17 @@ import ScrollView from '../ScrollView.vue';
     ScrollView,
   },
 })
-export default class ListPlayer extends Vue {}
+export default class ListPlayer extends Vue {
+  isShow = false;
+
+  show() {
+    this.isShow = true;
+  }
+
+  hidden() {
+    this.isShow = false;
+  }
+}
 </script>
 
 <style lang='scss' scoped>

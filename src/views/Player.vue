@@ -1,8 +1,8 @@
 <template>
   <div>
     <NormalPlayer></NormalPlayer>
-    <MiniPlayer></MiniPlayer>
-    <ListPlayer></ListPlayer>
+    <MiniPlayer @showList="showList"></MiniPlayer>
+    <ListPlayer ref="listPlayer"></ListPlayer>
   </div>
 </template>
 
@@ -20,7 +20,11 @@ import ListPlayer from '../components/Player/ListPlayer.vue';
     ListPlayer,
   },
 })
-export default class Player extends Vue {}
+export default class Player extends Vue {
+  showList() {
+    (this.$refs.listPlayer as any).show();
+  }
+}
 </script>
 
 <style lang='scss' scoped>

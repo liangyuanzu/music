@@ -12,7 +12,7 @@
       </div>
       <div class="player-right">
         <div class="play"></div>
-        <div class="list"></div>
+        <div class="list" @click.stop="showList"></div>
       </div>
     </div>
   </div>
@@ -24,7 +24,11 @@ import { Component, Vue } from 'vue-property-decorator';
 @Component({
   name: 'MiniPlayer',
 })
-export default class MiniPlayer extends Vue {}
+export default class MiniPlayer extends Vue {
+  showList() {
+    this.$emit('showList');
+  }
+}
 </script>
 
 <style lang='scss' scoped>
