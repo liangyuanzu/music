@@ -25,6 +25,7 @@ export default class ScrollView extends Vue {
       disablePointer: true,
       disableTouch: false,
       disableMouse: true,
+      click: true, // 真机调试点击无反应
     });
 
     // 创建一个观察者对象
