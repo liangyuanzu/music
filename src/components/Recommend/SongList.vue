@@ -5,7 +5,12 @@
         <h3>最新音乐</h3>
       </div>
       <ul class="song-list">
-        <li v-for="item in newSongs" :key="item.id" class="item">
+        <li
+          v-for="item in newSongs"
+          :key="item.id"
+          class="item"
+          @click="selectMusic"
+        >
           <img v-lazy="item.song.album.picUrl" />
           <div>
             <h3>{{ item.name }}</h3>
@@ -19,12 +24,19 @@
 
 <script lang='ts'>
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Action } from 'vuex-class';
 
 @Component({
-  name: 'SongList'
+  name: 'SongList',
 })
 export default class SongList extends Vue {
   @Prop({ default: [] }) readonly newSongs: Array<object>;
+
+  @Action('setFullScreen') setFullScreen;
+
+  selectMusic() {
+    this.setFullScreen(true);
+  }
 }
 </script>
 
