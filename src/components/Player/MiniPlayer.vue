@@ -1,7 +1,7 @@
 <template>
   <div class="mini-player">
     <div class="player-wrapper">
-      <div class="player-left">
+      <div class="player-left" @click="showNormalPlayer">
         <img
           src="https://p1.music.126.net/-EHFGXVwLwy7ra48lDKMfg==/109951165611159240.jpg"
         />
@@ -20,6 +20,7 @@
 
 <script lang='ts'>
 import { Component, Vue } from 'vue-property-decorator';
+import { Action } from 'vuex-class';
 
 @Component({
   name: 'MiniPlayer',
@@ -27,6 +28,12 @@ import { Component, Vue } from 'vue-property-decorator';
 export default class MiniPlayer extends Vue {
   showList() {
     this.$emit('showList');
+  }
+
+  @Action('setFullScreen') setFullScreen;
+
+  showNormalPlayer() {
+    this.setFullScreen(true);
   }
 }
 </script>
