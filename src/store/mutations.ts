@@ -5,6 +5,7 @@ import {
   SET_NEW_SONGS,
   SET_DETAIL,
   SET_ALBUM_DATA,
+  SET_FULL_SCREEN,
 } from './mutations-type';
 
 export default {
@@ -30,5 +31,9 @@ export default {
 
   [SET_ALBUM_DATA](state, data: object) {
     state.albumData = data;
+  },
+
+  [SET_FULL_SCREEN](state, flag: boolean) {
+    state.isFullScreen = flag;
   },
 };

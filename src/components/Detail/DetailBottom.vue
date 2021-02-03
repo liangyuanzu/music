@@ -5,7 +5,12 @@
         <div class="bottom-icon"></div>
         <div class="bottom-title">播放全部</div>
       </li>
-      <li v-for="item in playlist" :key="item.id" class="item">
+      <li
+        v-for="item in playlist"
+        :key="item.id"
+        class="item"
+        @click="selectMusic"
+      >
         <h3>{{ item.name }}</h3>
         <p>{{ item.al.name }} - {{ item.ar[0].name }}</p>
       </li>
@@ -15,12 +20,19 @@
 
 <script lang='ts'>
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Action } from 'vuex-class';
 
 @Component({
   name: 'DetailBottom',
 })
 export default class DetailBottom extends Vue {
   @Prop({ default: () => [] }) readonly playlist: Array<object>;
+
+  @Action('setFullScreen') setFullScreen;
+
+  selectMusic() {
+    this.setFullScreen(true);
+  }
 }
 </script>
 

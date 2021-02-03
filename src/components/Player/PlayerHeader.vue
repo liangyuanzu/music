@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <div class="left"></div>
+    <div class="left" @click="hiddenNormalPlayer"></div>
     <div class="title">
       <h3>演员</h3>
       <p>薛之谦</p>
@@ -11,11 +11,18 @@
 
 <script lang='ts'>
 import { Component, Vue } from 'vue-property-decorator';
+import { Action } from 'vuex-class';
 
 @Component({
   name: 'PlayerHeader',
 })
-export default class PlayerHeader extends Vue {}
+export default class PlayerHeader extends Vue {
+  @Action('setFullScreen') setFullScreen;
+
+  hiddenNormalPlayer() {
+    this.setFullScreen(false);
+  }
+}
 </script>
 
 <style lang='scss' scoped>

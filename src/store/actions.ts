@@ -13,6 +13,7 @@ import {
   SET_NEW_SONGS,
   SET_DETAIL,
   SET_ALBUM_DATA,
+  SET_FULL_SCREEN,
 } from './mutations-type';
 
 export default {
@@ -44,5 +45,9 @@ export default {
   async getAlbumData({ commit }, id: number) {
     const { album, songs } = await getAlbum(id);
     commit(SET_ALBUM_DATA, { album, songs });
+  },
+
+  setFullScreen({ commit }, flag: boolean) {
+    commit(SET_FULL_SCREEN, flag);
   },
 };

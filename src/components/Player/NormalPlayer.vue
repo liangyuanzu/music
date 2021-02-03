@@ -1,5 +1,5 @@
 <template>
-  <div class="normal-player">
+  <div class="normal-player" v-show="isFullScreen">
     <div class="player-warpper">
       <PlayerHeader></PlayerHeader>
       <PlayerMiddle></PlayerMiddle>
@@ -16,6 +16,7 @@
 
 <script lang='ts'>
 import { Component, Vue } from 'vue-property-decorator';
+import { Getter } from 'vuex-class';
 import PlayerHeader from './PlayerHeader.vue';
 import PlayerMiddle from './PlayerMiddle.vue';
 import PlayerBottom from './PlayerBottom.vue';
@@ -28,7 +29,9 @@ import PlayerBottom from './PlayerBottom.vue';
     PlayerBottom,
   },
 })
-export default class NormalPlayer extends Vue {}
+export default class NormalPlayer extends Vue {
+  @Getter('isFullScreen') isFullScreen;
+}
 </script>
 
 <style lang='scss' scoped>

@@ -22,4 +22,8 @@ export default {
   albumData(state): object {
     return state.albumData;
   },
+
+  isFullScreen(state): boolean {
+    return state.isFullScreen;
+  },
 };

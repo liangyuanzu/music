@@ -4,3 +4,4 @@ export const SET_NEW_ALBUMS = 'SET_NEW_ALBUMS';
 export const SET_NEW_SONGS = 'SET_NEW_SONGS';
 export const SET_DETAIL = 'SET_DETAIL';
 export const SET_ALBUM_DATA = 'SET_ALBUM_DATA';
+export const SET_FULL_SCREEN = 'SET_FULL_SCREEN';
