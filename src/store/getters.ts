@@ -26,4 +26,8 @@ export default {
   isFullScreen(state): boolean {
     return state.isFullScreen;
   },
+
+  isShowMiniPlayer(state): boolean {
+    return state.isShowMiniPlayer;
+  },
 };

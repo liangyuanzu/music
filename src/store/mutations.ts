@@ -6,6 +6,7 @@ import {
   SET_DETAIL,
   SET_ALBUM_DATA,
   SET_FULL_SCREEN,
+  SET_MINI_PLAYER,
 } from './mutations-type';
 
 export default {
@@ -35,5 +36,9 @@ export default {
 
   [SET_FULL_SCREEN](state, flag: boolean) {
     state.isFullScreen = flag;
+  },
+
+  [SET_MINI_PLAYER](state, flag: boolean) {
+    state.isShowMiniPlayer = flag;
   },
 };

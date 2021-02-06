@@ -19,8 +19,11 @@ import { Action } from 'vuex-class';
 export default class PlayerHeader extends Vue {
   @Action('setFullScreen') setFullScreen;
 
+  @Action('setMiniPlayer') setMiniPlayer;
+
   hiddenNormalPlayer() {
     this.setFullScreen(false);
+    this.setMiniPlayer(true);
   }
 }
 </script>

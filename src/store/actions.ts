@@ -14,6 +14,7 @@ import {
   SET_DETAIL,
   SET_ALBUM_DATA,
   SET_FULL_SCREEN,
+  SET_MINI_PLAYER,
 } from './mutations-type';
 
 export default {
@@ -49,5 +50,9 @@ export default {
 
   setFullScreen({ commit }, flag: boolean) {
     commit(SET_FULL_SCREEN, flag);
+  },
+
+  setMiniPlayer({ commit }, flag: boolean) {
+    commit(SET_MINI_PLAYER, flag);
   },
 };
