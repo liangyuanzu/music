@@ -12,7 +12,7 @@
           </div>
         </div>
         <div class="player-right">
-          <div class="play"></div>
+          <div class="play" @click="play" ref="play"></div>
           <div class="list" @click.stop="showList"></div>
         </div>
       </div>
@@ -21,8 +21,8 @@
 </template>
 
 <script lang='ts'>
-import { Component, Vue } from 'vue-property-decorator';
-import { Action, Getter } from 'vuex-class';
+import { Component, Vue, Watch } from 'vue-property-decorator';
+import { Getter, Action } from 'vuex-class';
 import Velocity from 'velocity-animate';
 import 'velocity-animate/velocity.ui';
 
@@ -36,9 +36,22 @@ export default class MiniPlayer extends Vue {
 
   @Getter('isShowMiniPlayer') isShowMiniPlayer;
 
+  @Getter('isPlaying') isPlaying;
+
   @Action('setFullScreen') setFullScreen;
 
   @Action('setMiniPlayer') setMiniPlayer;
+
+  @Action('setIsPlaying') setIsPlaying;
+
+  @Watch('isPlaying')
+  onIsPlayingChanged(val: boolean) {
+    if (val) {
+      (this.$refs.play as any).classList.add('active');
+    } else {
+      (this.$refs.play as any).classList.remove('active');
+    }
+  }
 
   showNormalPlayer() {
     this.setFullScreen(true);
@@ -55,6 +68,10 @@ export default class MiniPlayer extends Vue {
     Velocity(el, 'transition.bounceDownOut', { duration: 500 }, () => {
       done();
     });
+  }
+
+  play() {
+    this.setIsPlaying(!this.isPlaying);
   }
 }
 </script>

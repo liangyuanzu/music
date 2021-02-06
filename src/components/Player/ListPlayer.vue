@@ -16,7 +16,7 @@
             <ul>
               <li class="item">
                 <div class="item-left">
-                  <div class="item-play"></div>
+                  <div class="item-play" @click="play" ref="play"></div>
                   <p>演员</p>
                 </div>
                 <div class="item-right">
@@ -36,7 +36,8 @@
 </template>
 
 <script lang='ts'>
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
+import { Getter, Action } from 'vuex-class';
 import Velocity from 'velocity-animate';
 import 'velocity-animate/velocity.ui';
 import ScrollView from '../ScrollView.vue';
@@ -49,6 +50,19 @@ import ScrollView from '../ScrollView.vue';
 })
 export default class ListPlayer extends Vue {
   isShow = false;
+
+  @Getter('isPlaying') isPlaying;
+
+  @Action('setIsPlaying') setIsPlaying;
+
+  @Watch('isPlaying')
+  onIsPlayingChanged(val: boolean) {
+    if (val) {
+      (this.$refs.play as any).classList.add('active');
+    } else {
+      (this.$refs.play as any).classList.remove('active');
+    }
+  }
 
   show() {
     this.isShow = true;
@@ -68,6 +82,10 @@ export default class ListPlayer extends Vue {
     Velocity(el, 'transition.fadeOut', { duration: 500 }, () => {
       done();
     });
+  }
+
+  play() {
+    this.setIsPlaying(!this.isPlaying);
   }
 }
 </script>
@@ -132,6 +150,9 @@ export default class ListPlayer extends Vue {
             height: 56px;
             margin-right: 20px;
             @include bg_img('../../assets/images/small_play');
+            &.active {
+              @include bg_img('../../assets/images/small_pause');
+            }
           }
           p {
             @include font_size($font_medium_s);

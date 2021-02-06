@@ -12,7 +12,7 @@
     <div class="bottom-controll">
       <div class="mode"></div>
       <div class="prev"></div>
-      <div class="play"></div>
+      <div class="play" @click="play" ref="play"></div>
       <div class="next"></div>
       <div class="favorite"></div>
     </div>
@@ -20,12 +20,30 @@
 </template>
 
 <script lang='ts'>
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
+import { Getter, Action } from 'vuex-class';
 
 @Component({
   name: 'PlayerBottom',
 })
-export default class PlayerBottom extends Vue {}
+export default class PlayerBottom extends Vue {
+  @Getter('isPlaying') isPlaying;
+
+  @Action('setIsPlaying') setIsPlaying;
+
+  @Watch('isPlaying')
+  onIsPlayingChanged(val: boolean) {
+    if (val) {
+      (this.$refs.play as any).classList.add('active');
+    } else {
+      (this.$refs.play as any).classList.remove('active');
+    }
+  }
+
+  play() {
+    this.setIsPlaying(!this.isPlaying);
+  }
+}
 </script>
 
 <style lang='scss' scoped>
@@ -89,6 +107,9 @@ export default class PlayerBottom extends Vue {}
     }
     .play {
       @include bg_img('../../assets/images/play');
+      &.active {
+        @include bg_img('../../assets/images/pause');
+      }
     }
     .next {
       @include bg_img('../../assets/images/next');
