@@ -13,5 +13,6 @@ module.exports = {
     'linebreak-style': 0,
     'import/prefer-default-export': 'off',
     'global-require': 0,
+    'class-methods-use-this': 'off',
   },
 };
