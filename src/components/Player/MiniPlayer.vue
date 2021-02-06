@@ -1,26 +1,30 @@
 <template>
-  <div class="mini-player" v-show="isShowMiniPlayer">
-    <div class="player-wrapper">
-      <div class="player-left" @click="showNormalPlayer">
-        <img
-          src="https://p1.music.126.net/-EHFGXVwLwy7ra48lDKMfg==/109951165611159240.jpg"
-        />
-        <div class="player-title">
-          <h3>演员</h3>
-          <p>薛之谦</p>
+  <transition :css="false" @enter="enter" @leave="leave">
+    <div class="mini-player" v-show="isShowMiniPlayer">
+      <div class="player-wrapper">
+        <div class="player-left" @click="showNormalPlayer">
+          <img
+            src="https://p1.music.126.net/-EHFGXVwLwy7ra48lDKMfg==/109951165611159240.jpg"
+          />
+          <div class="player-title">
+            <h3>演员</h3>
+            <p>薛之谦</p>
+          </div>
+        </div>
+        <div class="player-right">
+          <div class="play"></div>
+          <div class="list" @click.stop="showList"></div>
         </div>
       </div>
-      <div class="player-right">
-        <div class="play"></div>
-        <div class="list" @click.stop="showList"></div>
-      </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script lang='ts'>
 import { Component, Vue } from 'vue-property-decorator';
 import { Action, Getter } from 'vuex-class';
+import Velocity from 'velocity-animate';
+import 'velocity-animate/velocity.ui';
 
 @Component({
   name: 'MiniPlayer',
@@ -39,6 +43,18 @@ export default class MiniPlayer extends Vue {
   showNormalPlayer() {
     this.setFullScreen(true);
     this.setMiniPlayer(false);
+  }
+
+  enter(el, done) {
+    Velocity(el, 'transition.bounceUpIn', { duration: 500 }, () => {
+      done();
+    });
+  }
+
+  leave(el, done) {
+    Velocity(el, 'transition.bounceDownOut', { duration: 500 }, () => {
+      done();
+    });
   }
 }
 </script>

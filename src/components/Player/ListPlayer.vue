@@ -1,40 +1,44 @@
 <template>
-  <div class="list-player" v-show="isShow">
-    <div class="player-wrapper">
-      <div class="player-top">
-        <div class="top-left">
-          <div class="mode"></div>
-          <p>顺序播放</p>
+  <transition :css="false" @enter="enter" @leave="leave">
+    <div class="list-player" v-show="isShow">
+      <div class="player-wrapper">
+        <div class="player-top">
+          <div class="top-left">
+            <div class="mode"></div>
+            <p>顺序播放</p>
+          </div>
+          <div class="top-right">
+            <div class="del"></div>
+          </div>
         </div>
-        <div class="top-right">
-          <div class="del"></div>
+        <div class="player-middle">
+          <ScrollView>
+            <ul>
+              <li class="item">
+                <div class="item-left">
+                  <div class="item-play"></div>
+                  <p>演员</p>
+                </div>
+                <div class="item-right">
+                  <div class="item-favorite"></div>
+                  <div class="item-del"></div>
+                </div>
+              </li>
+            </ul>
+          </ScrollView>
         </div>
-      </div>
-      <div class="player-middle">
-        <ScrollView>
-          <ul>
-            <li class="item">
-              <div class="item-left">
-                <div class="item-play"></div>
-                <p>演员</p>
-              </div>
-              <div class="item-right">
-                <div class="item-favorite"></div>
-                <div class="item-del"></div>
-              </div>
-            </li>
-          </ul>
-        </ScrollView>
-      </div>
-      <div class="player-bottom">
-        <p @click.stop="hidden">关闭</p>
+        <div class="player-bottom">
+          <p @click.stop="hidden">关闭</p>
+        </div>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script lang='ts'>
 import { Component, Vue } from 'vue-property-decorator';
+import Velocity from 'velocity-animate';
+import 'velocity-animate/velocity.ui';
 import ScrollView from '../ScrollView.vue';
 
 @Component({
@@ -52,6 +56,18 @@ export default class ListPlayer extends Vue {
 
   hidden() {
     this.isShow = false;
+  }
+
+  enter(el, done) {
+    Velocity(el, 'transition.fadeIn', { duration: 500 }, () => {
+      done();
+    });
+  }
+
+  leave(el, done) {
+    Velocity(el, 'transition.fadeOut', { duration: 500 }, () => {
+      done();
+    });
   }
 }
 </script>

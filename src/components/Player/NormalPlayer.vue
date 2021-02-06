@@ -1,22 +1,26 @@
 <template>
-  <div class="normal-player" v-show="isFullScreen">
-    <div class="player-warpper">
-      <PlayerHeader></PlayerHeader>
-      <PlayerMiddle></PlayerMiddle>
-      <PlayerBottom></PlayerBottom>
+  <transition :css="false" @enter="enter" @leave="leave">
+    <div class="normal-player" v-show="isFullScreen">
+      <div class="player-warpper">
+        <PlayerHeader></PlayerHeader>
+        <PlayerMiddle></PlayerMiddle>
+        <PlayerBottom></PlayerBottom>
+      </div>
+      <div class="player-bg">
+        <img
+          src="https://p1.music.126.net/-EHFGXVwLwy7ra48lDKMfg==/109951165611159240.jpg"
+          alt=""
+        />
+      </div>
     </div>
-    <div class="player-bg">
-      <img
-        src="https://p1.music.126.net/-EHFGXVwLwy7ra48lDKMfg==/109951165611159240.jpg"
-        alt=""
-      />
-    </div>
-  </div>
+  </transition>
 </template>
 
 <script lang='ts'>
 import { Component, Vue } from 'vue-property-decorator';
 import { Getter } from 'vuex-class';
+import Velocity from 'velocity-animate';
+import 'velocity-animate/velocity.ui';
 import PlayerHeader from './PlayerHeader.vue';
 import PlayerMiddle from './PlayerMiddle.vue';
 import PlayerBottom from './PlayerBottom.vue';
@@ -31,6 +35,18 @@ import PlayerBottom from './PlayerBottom.vue';
 })
 export default class NormalPlayer extends Vue {
   @Getter('isFullScreen') isFullScreen;
+
+  enter(el, done) {
+    Velocity(el, 'transition.shrinkIn', { duration: 500 }, () => {
+      done();
+    });
+  }
+
+  leave(el, done) {
+    Velocity(el, 'transition.shrinkOut', { duration: 500 }, () => {
+      done();
+    });
+  }
 }
 </script>
 
