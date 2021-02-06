@@ -30,8 +30,11 @@ export default class DetailBottom extends Vue {
 
   @Action('setFullScreen') setFullScreen;
 
+  @Action('setMiniPlayer') setMiniPlayer;
+
   selectMusic() {
     this.setFullScreen(true);
+    this.setMiniPlayer(false);
   }
 }
 </script>
