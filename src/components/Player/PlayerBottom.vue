@@ -10,7 +10,7 @@
       <span>00:00</span>
     </div>
     <div class="bottom-controll">
-      <div class="mode"></div>
+      <div class="mode loop" @click="mode" ref="mode"></div>
       <div class="prev"></div>
       <div class="play" @click="play" ref="play"></div>
       <div class="next"></div>
@@ -22,6 +22,7 @@
 <script lang='ts'>
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { Getter, Action } from 'vuex-class';
+import config from '@/config/config';
 
 @Component({
   name: 'PlayerBottom',
@@ -29,7 +30,11 @@ import { Getter, Action } from 'vuex-class';
 export default class PlayerBottom extends Vue {
   @Getter('isPlaying') isPlaying;
 
+  @Getter('modeType') modeType;
+
   @Action('setIsPlaying') setIsPlaying;
+
+  @Action('setModeType') setModeType;
 
   @Watch('isPlaying')
   onIsPlayingChanged(val: boolean) {
@@ -40,8 +45,32 @@ export default class PlayerBottom extends Vue {
     }
   }
 
+  @Watch('modeType')
+  onModeTypeChanged(val: number) {
+    if (val === (config as any).mode.loop) {
+      (this.$refs.mode as any).classList.remove('random');
+      (this.$refs.mode as any).classList.add('loop');
+    } else if (val === (config as any).mode.one) {
+      (this.$refs.mode as any).classList.remove('loop');
+      (this.$refs.mode as any).classList.add('one');
+    } else if (val === (config as any).mode.random) {
+      (this.$refs.mode as any).classList.remove('one');
+      (this.$refs.mode as any).classList.add('random');
+    }
+  }
+
   play() {
     this.setIsPlaying(!this.isPlaying);
+  }
+
+  mode() {
+    if (this.modeType === (config as any).mode.loop) {
+      this.setModeType((config as any).mode.one);
+    } else if (this.modeType === (config as any).mode.one) {
+      this.setModeType((config as any).mode.random);
+    } else if (this.modeType === (config as any).mode.random) {
+      this.setModeType((config as any).mode.loop);
+    }
   }
 }
 </script>
@@ -100,7 +129,15 @@ export default class PlayerBottom extends Vue {
       height: 84px;
     }
     .mode {
-      @include bg_img('../../assets/images/loop');
+      &.loop {
+        @include bg_img('../../assets/images/loop');
+      }
+      &.one {
+        @include bg_img('../../assets/images/one');
+      }
+      &.random {
+        @include bg_img('../../assets/images/shuffle');
+      }
     }
     .prev {
       @include bg_img('../../assets/images/prev');

@@ -34,4 +34,8 @@ export default {
   isPlaying(state): boolean {
     return state.isPlaying;
   },
+
+  modeType(state): number {
+    return state.modeType;
+  },
 };
