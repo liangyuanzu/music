@@ -2,7 +2,7 @@
   <div>
     <swiper :options="swiperOption" class="player">
       <swiper-slide class="cd">
-        <div class="cd-wrapper">
+        <div class="cd-wrapper" ref="cdWrapper">
           <img
             src="https://p1.music.126.net/-EHFGXVwLwy7ra48lDKMfg==/109951165611159240.jpg"
             alt=""
@@ -72,8 +72,9 @@
 </template>
 
 <script lang='ts'>
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 import { swiper, swiperSlide } from 'vue-awesome-swiper';
+import { Getter } from 'vuex-class';
 import ScrollView from '../ScrollView.vue';
 
 @Component({
@@ -95,6 +96,17 @@ export default class PlayerMiddle extends Vue {
     observeParents: true,
     observeSlideChildren: true,
   };
+
+  @Getter('isPlaying') isPlaying;
+
+  @Watch('isPlaying')
+  onIsPlayingChanged(val: boolean) {
+    if (val) {
+      (this.$refs.cdWrapper as any).classList.add('active');
+    } else {
+      (this.$refs.cdWrapper as any).classList.remove('active');
+    }
+  }
 }
 </script>
 
@@ -117,6 +129,11 @@ export default class PlayerMiddle extends Vue {
       border-radius: 50%;
       border: 30px solid #fff;
       overflow: hidden;
+      animation: sport 20s linear infinite;
+      animation-play-state: paused;
+      &.active {
+        animation-play-state: running;
+      }
       img {
         width: 100%;
         height: 100%;
@@ -139,6 +156,15 @@ export default class PlayerMiddle extends Vue {
         padding-bottom: 100px;
       }
     }
+  }
+}
+
+@keyframes sport {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }
 </style>

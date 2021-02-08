@@ -5,6 +5,7 @@
         <div class="player-left" @click="showNormalPlayer">
           <img
             src="https://p1.music.126.net/-EHFGXVwLwy7ra48lDKMfg==/109951165611159240.jpg"
+            ref="cd"
           />
           <div class="player-title">
             <h3>演员</h3>
@@ -48,8 +49,10 @@ export default class MiniPlayer extends Vue {
   onIsPlayingChanged(val: boolean) {
     if (val) {
       (this.$refs.play as any).classList.add('active');
+      (this.$refs.cd as any).classList.add('active');
     } else {
       (this.$refs.play as any).classList.remove('active');
+      (this.$refs.cd as any).classList.remove('active');
     }
   }
 
@@ -104,6 +107,11 @@ export default class MiniPlayer extends Vue {
         height: 100px;
         border-radius: 50%;
         margin-right: 20px;
+        animation: sport 20s linear infinite;
+        animation-play-state: paused;
+        &.active {
+          animation-play-state: running;
+        }
       }
       .player-title {
         display: flex;
@@ -135,6 +143,15 @@ export default class MiniPlayer extends Vue {
         @include bg_img('../../assets/images/list');
       }
     }
+  }
+}
+
+@keyframes sport {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }
 </style>
