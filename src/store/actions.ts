@@ -15,6 +15,7 @@ import {
   SET_ALBUM_DATA,
   SET_FULL_SCREEN,
   SET_MINI_PLAYER,
+  SET_LIST_PLAYER,
   SET_IS_PLAYING,
   SET_MODE_TYPE,
 } from './mutations-type';
@@ -56,6 +57,10 @@ export default {
 
   setMiniPlayer({ commit }, flag: boolean) {
     commit(SET_MINI_PLAYER, flag);
+  },
+
+  setListPlayer({ commit }, flag: boolean) {
+    commit(SET_LIST_PLAYER, flag);
   },
 
   setIsPlaying({ commit }, flag: boolean) {

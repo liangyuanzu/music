@@ -7,6 +7,7 @@ import {
   SET_ALBUM_DATA,
   SET_FULL_SCREEN,
   SET_MINI_PLAYER,
+  SET_LIST_PLAYER,
   SET_IS_PLAYING,
   SET_MODE_TYPE,
 } from './mutations-type';
@@ -42,6 +43,10 @@ export default {
 
   [SET_MINI_PLAYER](state, flag: boolean) {
     state.isShowMiniPlayer = flag;
+  },
+
+  [SET_LIST_PLAYER](state, flag: boolean) {
+    state.isShowListPlayer = flag;
   },
 
   [SET_IS_PLAYING](state, flag: boolean) {

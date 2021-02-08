@@ -1,6 +1,6 @@
 <template>
   <transition :css="false" @enter="enter" @leave="leave">
-    <div class="list-player" v-show="isShow">
+    <div class="list-player" v-show="isShowListPlayer">
       <div class="player-wrapper">
         <div class="player-top">
           <div class="top-left">
@@ -52,11 +52,13 @@ import ScrollView from '../ScrollView.vue';
   },
 })
 export default class ListPlayer extends Vue {
-  isShow = false;
+  @Getter('isShowListPlayer') isShowListPlayer;
 
   @Getter('isPlaying') isPlaying;
 
   @Getter('modeType') modeType;
+
+  @Action('setListPlayer') setListPlayer;
 
   @Action('setIsPlaying') setIsPlaying;
 
@@ -85,12 +87,8 @@ export default class ListPlayer extends Vue {
     }
   }
 
-  show() {
-    this.isShow = true;
-  }
-
   hidden() {
-    this.isShow = false;
+    this.setListPlayer(false);
   }
 
   enter(el, done) {

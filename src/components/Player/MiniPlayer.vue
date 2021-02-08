@@ -13,7 +13,7 @@
           </div>
         </div>
         <div class="player-right">
-          <div class="play" @click="play" ref="play"></div>
+          <div class="play" @click.stop="play" ref="play"></div>
           <div class="list" @click.stop="showList"></div>
         </div>
       </div>
@@ -31,10 +31,6 @@ import 'velocity-animate/velocity.ui';
   name: 'MiniPlayer',
 })
 export default class MiniPlayer extends Vue {
-  showList() {
-    this.$emit('showList');
-  }
-
   @Getter('isShowMiniPlayer') isShowMiniPlayer;
 
   @Getter('isPlaying') isPlaying;
@@ -42,6 +38,8 @@ export default class MiniPlayer extends Vue {
   @Action('setFullScreen') setFullScreen;
 
   @Action('setMiniPlayer') setMiniPlayer;
+
+  @Action('setListPlayer') setListPlayer;
 
   @Action('setIsPlaying') setIsPlaying;
 
@@ -59,6 +57,10 @@ export default class MiniPlayer extends Vue {
   showNormalPlayer() {
     this.setFullScreen(true);
     this.setMiniPlayer(false);
+  }
+
+  showList() {
+    this.setListPlayer(true);
   }
 
   enter(el, done) {

@@ -31,6 +31,10 @@ export default {
     return state.isShowMiniPlayer;
   },
 
+  isShowListPlayer(state): boolean {
+    return state.isShowListPlayer;
+  },
+
   isPlaying(state): boolean {
     return state.isPlaying;
   },
