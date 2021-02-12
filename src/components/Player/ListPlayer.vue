@@ -16,10 +16,10 @@
         <div class="player-middle">
           <ScrollView>
             <ul>
-              <li class="item">
+              <li class="item" v-for="item in songs" :key="item.id">
                 <div class="item-left">
                   <div class="item-play" @click="play" ref="play"></div>
-                  <p>演员</p>
+                  <p>{{ item.name }}</p>
                 </div>
                 <div class="item-right">
                   <div class="item-favorite"></div>
@@ -57,6 +57,8 @@ export default class ListPlayer extends Vue {
   @Getter('isPlaying') isPlaying;
 
   @Getter('modeType') modeType;
+
+  @Getter('songs') songs;
 
   @Action('setListPlayer') setListPlayer;
 
