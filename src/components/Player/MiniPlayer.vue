@@ -118,7 +118,7 @@ export default class MiniPlayer extends Vue {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        @include font_color();
+        color: #fff;
         h3 {
           @include font_size($font_medium);
         }
