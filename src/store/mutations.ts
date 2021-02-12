@@ -75,6 +75,9 @@ export default {
   [SET_DEL_SONG](state, index?: number) {
     if (index !== undefined) {
       state.songs.splice(index, 1);
+      if (index < state.currentIndex) {
+        state.currentIndex -= 1;
+      }
     } else {
       state.songs = [];
     }
