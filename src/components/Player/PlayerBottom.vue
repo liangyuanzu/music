@@ -11,9 +11,9 @@
     </div>
     <div class="bottom-controll">
       <div class="mode loop" @click="mode" ref="mode"></div>
-      <div class="prev"></div>
+      <div class="prev" @click="prev"></div>
       <div class="play" @click="play" ref="play"></div>
-      <div class="next"></div>
+      <div class="next" @click="next"></div>
       <div class="favorite"></div>
     </div>
   </div>
@@ -32,9 +32,13 @@ export default class PlayerBottom extends Vue {
 
   @Getter('modeType') modeType;
 
+  @Getter('currentIndex') currentIndex;
+
   @Action('setIsPlaying') setIsPlaying;
 
   @Action('setModeType') setModeType;
+
+  @Action('setCurrentIndex') setCurrentIndex;
 
   @Watch('isPlaying')
   onIsPlayingChanged(val: boolean) {
@@ -61,6 +65,14 @@ export default class PlayerBottom extends Vue {
 
   play() {
     this.setIsPlaying(!this.isPlaying);
+  }
+
+  prev() {
+    this.setCurrentIndex(this.currentIndex - 1);
+  }
+
+  next() {
+    this.setCurrentIndex(this.currentIndex + 1);
   }
 
   mode() {

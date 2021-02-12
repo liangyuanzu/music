@@ -89,6 +89,12 @@ export default {
   },
 
   [SET_CURRENT_INDEX](state, index: number) {
-    state.currentIndex = index;
+    let newIndex = index;
+    if (index < 0) {
+      newIndex = state.songs.length - 1;
+    } else if (index > state.songs.length - 1) {
+      newIndex = 0;
+    }
+    state.currentIndex = newIndex;
   },
 };
