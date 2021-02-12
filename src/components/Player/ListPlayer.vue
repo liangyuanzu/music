@@ -15,10 +15,14 @@
         </div>
         <div class="player-middle">
           <ScrollView ref="scrollView">
-            <ul>
+            <ul ref="play">
               <li class="item" v-for="(item, index) in songs" :key="item.id">
                 <div class="item-left">
-                  <div class="item-play" @click="play" ref="play"></div>
+                  <div
+                    class="item-play"
+                    @click.stop="play"
+                    v-if="currentIndex === index"
+                  ></div>
                   <p>{{ item.name }}</p>
                 </div>
                 <div class="item-right">
@@ -59,6 +63,8 @@ export default class ListPlayer extends Vue {
   @Getter('modeType') modeType;
 
   @Getter('songs') songs;
+
+  @Getter('currentIndex') currentIndex;
 
   @Action('setListPlayer') setListPlayer;
 
@@ -190,6 +196,15 @@ export default class ListPlayer extends Vue {
     .player-middle {
       height: 700px;
       overflow: hidden;
+      ul {
+        &.active {
+          .item {
+            .item-play {
+              @include bg_img('../../assets/images/small_pause');
+            }
+          }
+        }
+      }
       .item {
         border-top: 1px solid #ccc;
         height: 100px;
@@ -206,9 +221,6 @@ export default class ListPlayer extends Vue {
             height: 56px;
             margin-right: 20px;
             @include bg_img('../../assets/images/small_play');
-            &.active {
-              @include bg_img('../../assets/images/small_pause');
-            }
           }
           p {
             @include font_size($font_medium_s);

@@ -62,4 +62,8 @@ export default {
   currentLyric(state): object {
     return state.currentLyric;
   },
+
+  currentIndex(state): number {
+    return state.currentIndex;
+  },
 };
