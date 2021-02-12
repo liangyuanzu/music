@@ -4,7 +4,7 @@
       <div class="player-warpper">
         <PlayerHeader></PlayerHeader>
         <PlayerMiddle></PlayerMiddle>
-        <PlayerBottom></PlayerBottom>
+        <PlayerBottom :curTime="curTime"></PlayerBottom>
       </div>
       <div class="player-bg">
         <img :src="currentSong.picUrl" alt="" />
@@ -14,7 +14,7 @@
 </template>
 
 <script lang='ts'>
-import { Component, Vue, Watch } from 'vue-property-decorator';
+import { Component, Vue, Watch, Prop } from 'vue-property-decorator';
 import { Getter, Action } from 'vuex-class';
 import Velocity from 'velocity-animate';
 import 'velocity-animate/velocity.ui';
@@ -31,6 +31,8 @@ import PlayerBottom from './PlayerBottom.vue';
   },
 })
 export default class NormalPlayer extends Vue {
+  @Prop({ default: 0, required: true }) curTime: number;
+
   @Getter('isFullScreen') isFullScreen;
 
   @Getter('currentSong') currentSong;

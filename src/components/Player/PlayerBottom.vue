@@ -2,8 +2,8 @@
   <div class="player-bottom">
     <div class="bottom-progress">
       <span ref="eleCurrentTime">00:00</span>
-      <div class="progress-bar">
-        <div class="progress-line">
+      <div class="progress-bar" @click="progressClick">
+        <div class="progress-line" ref="progressLine">
           <div class="progress-dot"></div>
         </div>
       </div>
@@ -20,7 +20,7 @@
 </template>
 
 <script lang='ts'>
-import { Component, Vue, Watch } from 'vue-property-decorator';
+import { Component, Vue, Watch, Prop } from 'vue-property-decorator';
 import { Getter, Action } from 'vuex-class';
 import config from '@/config/config';
 import { formatTime } from '@/helpers';
@@ -29,13 +29,13 @@ import { formatTime } from '@/helpers';
   name: 'PlayerBottom',
 })
 export default class PlayerBottom extends Vue {
+  @Prop({ default: 0, required: true }) curTime: number;
+
   @Getter('isPlaying') isPlaying;
 
   @Getter('modeType') modeType;
 
   @Getter('currentIndex') currentIndex;
-
-  @Getter('currentTime') currentTime;
 
   @Getter('totalTime') totalTime;
 
@@ -44,6 +44,8 @@ export default class PlayerBottom extends Vue {
   @Action('setModeType') setModeType;
 
   @Action('setCurrentIndex') setCurrentIndex;
+
+  @Action('setCurrentTime') setCurrentTime;
 
   @Watch('isPlaying')
   onIsPlayingChanged(val: boolean) {
@@ -68,11 +70,15 @@ export default class PlayerBottom extends Vue {
     }
   }
 
-  @Watch('currentTime')
-  onCurrentTimeChanged(val: number) {
+  @Watch('curTime')
+  onCurTimeChanged(val: number) {
+    // 格式化当前播放的时间
     const time: any = formatTime(val);
     (this.$refs
       .eleCurrentTime as any).innerHTML = `${time.minute}:${time.second}`;
+    // 根据当前播放的时间计算比例
+    const value = (val / this.totalTime) * 100;
+    (this.$refs.progressLine as any).style.width = `${value}%`;
   }
 
   @Watch('totalTime')
@@ -102,6 +108,20 @@ export default class PlayerBottom extends Vue {
     } else if (this.modeType === (config as any).mode.random) {
       this.setModeType((config as any).mode.loop);
     }
+  }
+
+  progressClick(e) {
+    // 计算进度条的位置
+    const normalLeft = e.target.offsetLeft;
+    const eventLeft = e.pageX;
+    const clickLeft = eventLeft - normalLeft;
+    const progressWidth = e.target.offsetWidth;
+    const value = clickLeft / progressWidth;
+    (this.$refs.progressLine as any).style.width = `${value * 100}%`;
+
+    // 重新计算播放时间
+    const currentTime = this.totalTime * value;
+    this.setCurrentTime(currentTime);
   }
 }
 </script>

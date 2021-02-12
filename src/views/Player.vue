@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NormalPlayer></NormalPlayer>
+    <NormalPlayer :curTime="curTime"></NormalPlayer>
     <MiniPlayer></MiniPlayer>
     <ListPlayer></ListPlayer>
     <audio :src="currentSong.url" ref="audio" @timeupdate="timeupdate"></audio>
@@ -23,13 +23,15 @@ import ListPlayer from '../components/Player/ListPlayer.vue';
   },
 })
 export default class Player extends Vue {
+  curTime = 0;
+
   @Getter('currentSong') currentSong;
 
   @Getter('isPlaying') isPlaying;
 
   @Getter('currentIndex') currentIndex;
 
-  @Action('setCurrentTime') setCurrentTime;
+  @Getter('currentTime') currentTime;
 
   @Action('setTotalTime') setTotalTime;
 
@@ -54,6 +56,11 @@ export default class Player extends Vue {
     };
   }
 
+  @Watch('currentTime')
+  onCurrentTimeChanged(val: number) {
+    (this.$refs.audio as any).currentTime = val;
+  }
+
   mounted() {
     (this.$refs.audio as any).oncanplay = () => {
       this.setTotalTime((this.$refs.audio as any).duration);
@@ -61,7 +68,7 @@ export default class Player extends Vue {
   }
 
   timeupdate(e) {
-    this.setCurrentTime(e.target.currentTime);
+    this.curTime = e.target.currentTime;
   }
 }
 </script>
