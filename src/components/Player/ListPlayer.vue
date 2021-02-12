@@ -16,7 +16,12 @@
         <div class="player-middle">
           <ScrollView ref="scrollView">
             <ul ref="play">
-              <li class="item" v-for="(item, index) in songs" :key="item.id">
+              <li
+                class="item"
+                v-for="(item, index) in songs"
+                :key="item.id"
+                @click="selectMusic(index)"
+              >
                 <div class="item-left">
                   <div
                     class="item-play"
@@ -73,6 +78,8 @@ export default class ListPlayer extends Vue {
   @Action('setModeType') setModeType;
 
   @Action('setDelSong') setDelSong;
+
+  @Action('setCurrentIndex') setCurrentIndex;
 
   @Watch('isPlaying')
   onIsPlayingChanged(val: boolean) {
@@ -140,6 +147,10 @@ export default class ListPlayer extends Vue {
 
   delAll() {
     this.setDelSong();
+  }
+
+  selectMusic(index: number) {
+    this.setCurrentIndex(index);
   }
 }
 </script>

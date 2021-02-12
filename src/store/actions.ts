@@ -25,6 +25,7 @@ import {
   SET_SONG_DETAIL,
   SET_SONG_LYRIC,
   SET_DEL_SONG,
+  SET_CURRENT_INDEX,
 } from './mutations-type';
 
 export default {
@@ -114,5 +115,9 @@ export default {
 
   setDelSong({ commit }, index?: number) {
     commit(SET_DEL_SONG, index);
+  },
+
+  setCurrentIndex({ commit }, index: number) {
+    commit(SET_CURRENT_INDEX, index);
   },
 };

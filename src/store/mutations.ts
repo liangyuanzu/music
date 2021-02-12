@@ -13,6 +13,7 @@ import {
   SET_SONG_DETAIL,
   SET_SONG_LYRIC,
   SET_DEL_SONG,
+  SET_CURRENT_INDEX,
 } from './mutations-type';
 
 export default {
@@ -82,5 +83,9 @@ export default {
       state.isShowMiniPlayer = false;
       state.isShowListPlayer = false;
     }
+  },
+
+  [SET_CURRENT_INDEX](state, index: number) {
+    state.currentIndex = index;
   },
 };
