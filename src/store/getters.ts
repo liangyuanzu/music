@@ -66,4 +66,12 @@ export default {
   currentIndex(state): number {
     return state.currentIndex;
   },
+
+  currentTime(state): number {
+    return state.currentTime;
+  },
+
+  totalTime(state): number {
+    return state.totalTime;
+  },
 };

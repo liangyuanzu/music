@@ -1,13 +1,13 @@
 <template>
   <div class="player-bottom">
     <div class="bottom-progress">
-      <span>00:00</span>
+      <span ref="eleCurrentTime">00:00</span>
       <div class="progress-bar">
         <div class="progress-line">
           <div class="progress-dot"></div>
         </div>
       </div>
-      <span>00:00</span>
+      <span ref="eleTotalTime">00:00</span>
     </div>
     <div class="bottom-controll">
       <div class="mode loop" @click="mode" ref="mode"></div>
@@ -23,6 +23,7 @@
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { Getter, Action } from 'vuex-class';
 import config from '@/config/config';
+import { formatTime } from '@/helpers';
 
 @Component({
   name: 'PlayerBottom',
@@ -33,6 +34,10 @@ export default class PlayerBottom extends Vue {
   @Getter('modeType') modeType;
 
   @Getter('currentIndex') currentIndex;
+
+  @Getter('currentTime') currentTime;
+
+  @Getter('totalTime') totalTime;
 
   @Action('setIsPlaying') setIsPlaying;
 
@@ -61,6 +66,20 @@ export default class PlayerBottom extends Vue {
       (this.$refs.mode as any).classList.remove('one');
       (this.$refs.mode as any).classList.add('random');
     }
+  }
+
+  @Watch('currentTime')
+  onCurrentTimeChanged(val: number) {
+    const time: any = formatTime(val);
+    (this.$refs
+      .eleCurrentTime as any).innerHTML = `${time.minute}:${time.second}`;
+  }
+
+  @Watch('totalTime')
+  onTotalTimeChanged(val: number) {
+    const time: any = formatTime(val);
+    (this.$refs
+      .eleTotalTime as any).innerHTML = `${time.minute}:${time.second}`;
   }
 
   play() {

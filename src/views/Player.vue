@@ -3,13 +3,13 @@
     <NormalPlayer></NormalPlayer>
     <MiniPlayer></MiniPlayer>
     <ListPlayer></ListPlayer>
-    <audio :src="currentSong.url" ref="audio"></audio>
+    <audio :src="currentSong.url" ref="audio" @timeupdate="timeupdate"></audio>
   </div>
 </template>
 
 <script lang='ts'>
 import { Component, Vue, Watch } from 'vue-property-decorator';
-import { Getter } from 'vuex-class';
+import { Getter, Action } from 'vuex-class';
 import NormalPlayer from '../components/Player/NormalPlayer.vue';
 import MiniPlayer from '../components/Player/MiniPlayer.vue';
 import ListPlayer from '../components/Player/ListPlayer.vue';
@@ -29,6 +29,10 @@ export default class Player extends Vue {
 
   @Getter('currentIndex') currentIndex;
 
+  @Action('setCurrentTime') setCurrentTime;
+
+  @Action('setTotalTime') setTotalTime;
+
   @Watch('isPlaying')
   onIsPlayingChanged(val: boolean) {
     if (val) {
@@ -41,12 +45,23 @@ export default class Player extends Vue {
   @Watch('currentIndex')
   onCurrentIndexChanged() {
     (this.$refs.audio as any).oncanplay = () => {
+      this.setTotalTime((this.$refs.audio as any).duration);
       if (this.isPlaying) {
         (this.$refs.audio as any).play();
       } else {
         (this.$refs.audio as any).pause();
       }
     };
+  }
+
+  mounted() {
+    (this.$refs.audio as any).oncanplay = () => {
+      this.setTotalTime((this.$refs.audio as any).duration);
+    };
+  }
+
+  timeupdate(e) {
+    this.setCurrentTime(e.target.currentTime);
   }
 }
 </script>

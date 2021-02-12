@@ -14,6 +14,8 @@ import {
   SET_SONG_LYRIC,
   SET_DEL_SONG,
   SET_CURRENT_INDEX,
+  SET_CURRENT_TIME,
+  SET_TOTAL_TIME,
 } from './mutations-type';
 
 export default {
@@ -96,5 +98,13 @@ export default {
       newIndex = 0;
     }
     state.currentIndex = newIndex;
+  },
+
+  [SET_CURRENT_TIME](state, time: number) {
+    state.currentTime = time;
+  },
+
+  [SET_TOTAL_TIME](state, time: number) {
+    state.totalTime = time;
   },
 };

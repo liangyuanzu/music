@@ -26,6 +26,8 @@ import {
   SET_SONG_LYRIC,
   SET_DEL_SONG,
   SET_CURRENT_INDEX,
+  SET_CURRENT_TIME,
+  SET_TOTAL_TIME,
 } from './mutations-type';
 
 export default {
@@ -119,5 +121,13 @@ export default {
 
   setCurrentIndex({ commit }, index: number) {
     commit(SET_CURRENT_INDEX, index);
+  },
+
+  setCurrentTime({ commit }, time: number) {
+    commit(SET_CURRENT_TIME, time);
+  },
+
+  setTotalTime({ commit }, time: number) {
+    commit(SET_TOTAL_TIME, time);
   },
 };
