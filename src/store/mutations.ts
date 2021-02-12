@@ -10,6 +10,7 @@ import {
   SET_LIST_PLAYER,
   SET_IS_PLAYING,
   SET_MODE_TYPE,
+  SET_SONG_DETAIL,
 } from './mutations-type';
 
 export default {
@@ -55,5 +56,9 @@ export default {
 
   [SET_MODE_TYPE](state, type: number) {
     state.modeType = type;
+  },
+
+  [SET_SONG_DETAIL](state, list: Array<object>) {
+    state.songs = list;
   },
 };

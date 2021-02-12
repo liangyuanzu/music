@@ -9,7 +9,7 @@
         v-for="item in playlist"
         :key="item.id"
         class="item"
-        @click="selectMusic"
+        @click="selectMusic(item.id)"
       >
         <h3>{{ item.name }}</h3>
         <p>{{ item.al.name }} - {{ item.ar[0].name }}</p>
@@ -32,9 +32,12 @@ export default class DetailBottom extends Vue {
 
   @Action('setMiniPlayer') setMiniPlayer;
 
-  selectMusic() {
+  @Action('setSongDetail') setSongDetail;
+
+  selectMusic(id: number) {
     this.setFullScreen(true);
     this.setMiniPlayer(false);
+    this.setSongDetail([id]);
   }
 }
 </script>

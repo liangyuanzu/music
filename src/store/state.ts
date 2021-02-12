@@ -12,4 +12,7 @@ export default {
   isShowListPlayer: false,
   isPlaying: false,
   modeType: (config as any).mode.loop, // 播放模式
+  songs: [], // 歌曲详情
+  currentSong: {},
+  currentIndex: 0,
 };

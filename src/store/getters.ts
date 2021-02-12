@@ -42,4 +42,20 @@ export default {
   modeType(state): number {
     return state.modeType;
   },
+
+  songs(state): Array<object> {
+    return state.songs;
+  },
+
+  currentSong(state): object {
+    let obj = {
+      name: '',
+      singer: '',
+      picUrl: null,
+    };
+    if (state.songs.length !== 0) {
+      obj = state.songs[state.currentIndex];
+    }
+    return obj;
+  },
 };

@@ -3,10 +3,7 @@
     <swiper :options="swiperOption" class="player">
       <swiper-slide class="cd">
         <div class="cd-wrapper" ref="cdWrapper">
-          <img
-            src="https://p1.music.126.net/-EHFGXVwLwy7ra48lDKMfg==/109951165611159240.jpg"
-            alt=""
-          />
+          <img :src="currentSong.picUrl" alt="" />
         </div>
         <p>作词 : 小星星Aurora</p>
       </swiper-slide>
@@ -98,6 +95,8 @@ export default class PlayerMiddle extends Vue {
   };
 
   @Getter('isPlaying') isPlaying;
+
+  @Getter('currentSong') currentSong;
 
   @Watch('isPlaying')
   onIsPlayingChanged(val: boolean) {

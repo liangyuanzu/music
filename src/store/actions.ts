@@ -5,6 +5,7 @@ import {
   getNewSong,
   getDetail,
   getAlbum,
+  getSongDetail,
 } from '@/api/index';
 import {
   SET_BANNERS,
@@ -18,6 +19,7 @@ import {
   SET_LIST_PLAYER,
   SET_IS_PLAYING,
   SET_MODE_TYPE,
+  SET_SONG_DETAIL,
 } from './mutations-type';
 
 export default {
@@ -69,5 +71,27 @@ export default {
 
   setModeType({ commit }, type: number) {
     commit(SET_MODE_TYPE, type);
+  },
+
+  async setSongDetail({ commit }, ids: Array<number>) {
+    const { songs } = await getSongDetail(ids.join(','));
+    const list: any = [];
+    songs.forEach((val) => {
+      const obj: any = {};
+      obj.id = val.id;
+      obj.name = val.name;
+      let singer = '';
+      val.ar.forEach((item, index) => {
+        if (index === 0) {
+          singer = item.name;
+        } else {
+          singer += `-${item.name}`;
+        }
+      });
+      obj.singer = singer;
+      obj.picUrl = val.al.picUrl;
+      list.push(obj);
+    });
+    commit(SET_SONG_DETAIL, list);
   },
 };

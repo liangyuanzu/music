@@ -7,10 +7,7 @@
         <PlayerBottom></PlayerBottom>
       </div>
       <div class="player-bg">
-        <img
-          src="https://p1.music.126.net/-EHFGXVwLwy7ra48lDKMfg==/109951165611159240.jpg"
-          alt=""
-        />
+        <img :src="currentSong.picUrl" alt="" />
       </div>
     </div>
   </transition>
@@ -35,6 +32,8 @@ import PlayerBottom from './PlayerBottom.vue';
 })
 export default class NormalPlayer extends Vue {
   @Getter('isFullScreen') isFullScreen;
+
+  @Getter('currentSong') currentSong;
 
   enter(el, done) {
     Velocity(el, 'transition.shrinkIn', { duration: 500 }, () => {

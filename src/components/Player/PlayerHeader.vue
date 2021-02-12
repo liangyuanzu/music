@@ -2,8 +2,8 @@
   <div class="header">
     <div class="left" @click="hiddenNormalPlayer"></div>
     <div class="title">
-      <h3>演员</h3>
-      <p>薛之谦</p>
+      <h3>{{ currentSong.name }}</h3>
+      <p>{{ currentSong.singer }}</p>
     </div>
     <div class="right"></div>
   </div>
@@ -11,12 +11,14 @@
 
 <script lang='ts'>
 import { Component, Vue } from 'vue-property-decorator';
-import { Action } from 'vuex-class';
+import { Getter, Action } from 'vuex-class';
 
 @Component({
   name: 'PlayerHeader',
 })
 export default class PlayerHeader extends Vue {
+  @Getter('currentSong') currentSong;
+
   @Action('setFullScreen') setFullScreen;
 
   @Action('setMiniPlayer') setMiniPlayer;
