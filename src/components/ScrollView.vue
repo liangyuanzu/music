@@ -52,6 +52,12 @@ export default class ScrollView extends Vue {
       fn(this.y);
     });
   }
+
+  refresh() {
+    this.$nextTick(() => {
+      this.iscroll.refresh();
+    });
+  }
 }
 </script>
 

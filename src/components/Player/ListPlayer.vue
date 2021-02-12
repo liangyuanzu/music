@@ -14,7 +14,7 @@
           </div>
         </div>
         <div class="player-middle">
-          <ScrollView>
+          <ScrollView ref="scrollView">
             <ul>
               <li class="item" v-for="item in songs" :key="item.id">
                 <div class="item-left">
@@ -86,6 +86,13 @@ export default class ListPlayer extends Vue {
     } else if (val === (config as any).mode.random) {
       (this.$refs.mode as any).classList.remove('one');
       (this.$refs.mode as any).classList.add('random');
+    }
+  }
+
+  @Watch('isShowListPlayer')
+  onIsShowListPlayerChanged(flag: boolean) {
+    if (flag) {
+      (this.$refs.scrollView as any).refresh();
     }
   }
 
