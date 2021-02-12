@@ -7,6 +7,7 @@ import {
   getAlbum,
   getSongDetail,
   getSongLyric,
+  getSongURL,
 } from '@/api/index';
 import { parseLyric } from '@/helpers';
 import {
@@ -78,9 +79,13 @@ export default {
 
   async setSongDetail({ commit }, ids: Array<number>) {
     const { songs } = await getSongDetail(ids.join(','));
+    const { data: urls } = await getSongURL(ids.join(','));
     const list: any = [];
     songs.forEach((val) => {
       const obj: any = {};
+      urls.forEach((item) => {
+        if (val.id === item.id) obj.url = item.url;
+      });
       obj.id = val.id;
       obj.name = val.name;
       let singer = '';

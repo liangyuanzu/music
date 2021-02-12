@@ -90,3 +90,15 @@ export function getSongLyric(id: number): Promise<any> {
     },
   });
 }
+
+/**
+ * 获取音乐 url
+ * @param {string} id 音乐 id (支持多个 id, 用 , 隔开)
+ * */
+export function getSongURL(id: string): Promise<any> {
+  return $request('/api/song/url', {
+    params: {
+      id,
+    },
+  });
+}
