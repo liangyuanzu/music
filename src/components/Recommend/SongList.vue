@@ -9,7 +9,7 @@
           v-for="item in newSongs"
           :key="item.id"
           class="item"
-          @click="selectMusic"
+          @click="selectMusic(item.id)"
         >
           <img v-lazy="item.song.album.picUrl" />
           <div>
@@ -36,9 +36,12 @@ export default class SongList extends Vue {
 
   @Action('setMiniPlayer') setMiniPlayer;
 
-  selectMusic() {
+  @Action('setSongDetail') setSongDetail;
+
+  selectMusic(id: number) {
     this.setFullScreen(true);
     this.setMiniPlayer(false);
+    this.setSongDetail([id]);
   }
 }
 </script>
