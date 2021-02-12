@@ -11,6 +11,7 @@ import {
   SET_IS_PLAYING,
   SET_MODE_TYPE,
   SET_SONG_DETAIL,
+  SET_SONG_LYRIC,
 } from './mutations-type';
 
 export default {
@@ -60,5 +61,9 @@ export default {
 
   [SET_SONG_DETAIL](state, list: Array<object>) {
     state.songs = list;
+  },
+
+  [SET_SONG_LYRIC](state, lyric: object) {
+    state.currentLyric = lyric;
   },
 };

@@ -68,13 +68,25 @@ export function getAlbum(id: number): Promise<any> {
 }
 
 /**
- * 获取获取歌曲详情
+ * 获取歌曲详情
  * @param {string} ids 音乐 id (支持多个 id, 用 , 隔开)
  * */
 export function getSongDetail(ids: string): Promise<any> {
   return $request('/api/song/detail', {
     params: {
       ids,
+    },
+  });
+}
+
+/**
+ * 获取歌词
+ * @param {number} id 音乐 id
+ * */
+export function getSongLyric(id: number): Promise<any> {
+  return $request('/api/lyric', {
+    params: {
+      id,
     },
   });
 }

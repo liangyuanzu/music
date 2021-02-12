@@ -58,4 +58,8 @@ export default {
     }
     return obj;
   },
+
+  currentLyric(state): object {
+    return state.currentLyric;
+  },
 };

@@ -15,4 +15,5 @@ export default {
   songs: [], // 歌曲详情
   currentSong: {},
   currentIndex: 0,
+  currentLyric: {},
 };

@@ -14,8 +14,8 @@
 </template>
 
 <script lang='ts'>
-import { Component, Vue } from 'vue-property-decorator';
-import { Getter } from 'vuex-class';
+import { Component, Vue, Watch } from 'vue-property-decorator';
+import { Getter, Action } from 'vuex-class';
 import Velocity from 'velocity-animate';
 import 'velocity-animate/velocity.ui';
 import PlayerHeader from './PlayerHeader.vue';
@@ -34,6 +34,13 @@ export default class NormalPlayer extends Vue {
   @Getter('isFullScreen') isFullScreen;
 
   @Getter('currentSong') currentSong;
+
+  @Action('setSongLyric') setSongLyric;
+
+  @Watch('currentSong')
+  onCurrentSongChanged(val: any) {
+    if (val.id) this.setSongLyric(val.id);
+  }
 
   enter(el, done) {
     Velocity(el, 'transition.shrinkIn', { duration: 500 }, () => {

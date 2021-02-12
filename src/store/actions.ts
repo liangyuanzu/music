@@ -6,7 +6,9 @@ import {
   getDetail,
   getAlbum,
   getSongDetail,
+  getSongLyric,
 } from '@/api/index';
+import { parseLyric } from '@/helpers';
 import {
   SET_BANNERS,
   SET_PERSONALIZED,
@@ -20,6 +22,7 @@ import {
   SET_IS_PLAYING,
   SET_MODE_TYPE,
   SET_SONG_DETAIL,
+  SET_SONG_LYRIC,
 } from './mutations-type';
 
 export default {
@@ -93,5 +96,13 @@ export default {
       list.push(obj);
     });
     commit(SET_SONG_DETAIL, list);
+  },
+
+  async setSongLyric({ commit }, id: number) {
+    const {
+      lrc: { lyric },
+    } = await getSongLyric(id);
+    const obj = parseLyric(lyric);
+    commit(SET_SONG_LYRIC, obj);
   },
 };
