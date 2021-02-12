@@ -3,13 +3,10 @@
     <div class="mini-player" v-show="isShowMiniPlayer">
       <div class="player-wrapper">
         <div class="player-left" @click="showNormalPlayer">
-          <img
-            src="https://p1.music.126.net/-EHFGXVwLwy7ra48lDKMfg==/109951165611159240.jpg"
-            ref="cd"
-          />
+          <img :src="currentSong.picUrl" ref="cd" />
           <div class="player-title">
-            <h3>演员</h3>
-            <p>薛之谦</p>
+            <h3>{{ currentSong.name }}</h3>
+            <p>{{ currentSong.singer }}</p>
           </div>
         </div>
         <div class="player-right">
@@ -34,6 +31,8 @@ export default class MiniPlayer extends Vue {
   @Getter('isShowMiniPlayer') isShowMiniPlayer;
 
   @Getter('isPlaying') isPlaying;
+
+  @Getter('currentSong') currentSong;
 
   @Action('setFullScreen') setFullScreen;
 
