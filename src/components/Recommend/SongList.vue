@@ -40,7 +40,6 @@ export default class SongList extends Vue {
 
   selectMusic(id: number) {
     this.setFullScreen(true);
-    this.setMiniPlayer(false);
     this.setSongDetail([id]);
   }
 }

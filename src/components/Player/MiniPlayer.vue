@@ -55,7 +55,6 @@ export default class MiniPlayer extends Vue {
 
   showNormalPlayer() {
     this.setFullScreen(true);
-    this.setMiniPlayer(false);
   }
 
   showList() {

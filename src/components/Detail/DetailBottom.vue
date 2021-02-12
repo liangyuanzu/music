@@ -36,13 +36,11 @@ export default class DetailBottom extends Vue {
 
   selectMusic(id: number) {
     this.setFullScreen(true);
-    this.setMiniPlayer(false);
     this.setSongDetail([id]);
   }
 
   selectAllMusic() {
     this.setFullScreen(true);
-    this.setMiniPlayer(false);
     const ids = this.playlist.map((i: any) => i.id);
     this.setSongDetail(ids);
   }
