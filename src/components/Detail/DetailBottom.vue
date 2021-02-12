@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul class="detail-bottom">
-      <li class="bottom-top">
+      <li class="bottom-top" @click="selectAllMusic">
         <div class="bottom-icon"></div>
         <div class="bottom-title">播放全部</div>
       </li>
@@ -38,6 +38,13 @@ export default class DetailBottom extends Vue {
     this.setFullScreen(true);
     this.setMiniPlayer(false);
     this.setSongDetail([id]);
+  }
+
+  selectAllMusic() {
+    this.setFullScreen(true);
+    this.setMiniPlayer(false);
+    const ids = this.playlist.map((i: any) => i.id);
+    this.setSongDetail(ids);
   }
 }
 </script>
