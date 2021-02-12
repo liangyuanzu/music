@@ -11,3 +11,4 @@ export const SET_IS_PLAYING = 'SET_IS_PLAYING';
 export const SET_MODE_TYPE = 'SET_MODE_TYPE';
 export const SET_SONG_DETAIL = 'SET_SONG_DETAIL';
 export const SET_SONG_LYRIC = 'SET_SONG_LYRIC';
+export const SET_DEL_SONG = 'SET_DEL_SONG';

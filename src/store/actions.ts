@@ -24,6 +24,7 @@ import {
   SET_MODE_TYPE,
   SET_SONG_DETAIL,
   SET_SONG_LYRIC,
+  SET_DEL_SONG,
 } from './mutations-type';
 
 export default {
@@ -109,5 +110,9 @@ export default {
     } = await getSongLyric(id);
     const obj = parseLyric(lyric);
     commit(SET_SONG_LYRIC, obj);
+  },
+
+  setDelSong({ commit }, index?: number) {
+    commit(SET_DEL_SONG, index);
   },
 };

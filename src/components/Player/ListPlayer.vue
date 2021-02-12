@@ -10,20 +10,20 @@
             <p v-else>随机播放</p>
           </div>
           <div class="top-right">
-            <div class="del"></div>
+            <div class="del" @click.stop="delAll"></div>
           </div>
         </div>
         <div class="player-middle">
           <ScrollView ref="scrollView">
             <ul>
-              <li class="item" v-for="item in songs" :key="item.id">
+              <li class="item" v-for="(item, index) in songs" :key="item.id">
                 <div class="item-left">
                   <div class="item-play" @click="play" ref="play"></div>
                   <p>{{ item.name }}</p>
                 </div>
                 <div class="item-right">
                   <div class="item-favorite"></div>
-                  <div class="item-del"></div>
+                  <div class="item-del" @click.stop="del(index)"></div>
                 </div>
               </li>
             </ul>
@@ -65,6 +65,8 @@ export default class ListPlayer extends Vue {
   @Action('setIsPlaying') setIsPlaying;
 
   @Action('setModeType') setModeType;
+
+  @Action('setDelSong') setDelSong;
 
   @Watch('isPlaying')
   onIsPlayingChanged(val: boolean) {
@@ -124,6 +126,14 @@ export default class ListPlayer extends Vue {
     } else if (this.modeType === (config as any).mode.random) {
       this.setModeType((config as any).mode.loop);
     }
+  }
+
+  del(index: number) {
+    this.setDelSong(index);
+  }
+
+  delAll() {
+    this.setDelSong();
   }
 }
 </script>

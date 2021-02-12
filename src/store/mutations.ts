@@ -12,6 +12,7 @@ import {
   SET_MODE_TYPE,
   SET_SONG_DETAIL,
   SET_SONG_LYRIC,
+  SET_DEL_SONG,
 } from './mutations-type';
 
 export default {
@@ -65,5 +66,18 @@ export default {
 
   [SET_SONG_LYRIC](state, lyric: object) {
     state.currentLyric = lyric;
+  },
+
+  [SET_DEL_SONG](state, index?: number) {
+    if (index !== undefined) {
+      state.songs.splice(index, 1);
+    } else {
+      state.songs = [];
+    }
+    if (state.songs.length === 0) {
+      state.isFullScreen = false;
+      state.isShowMiniPlayer = false;
+      state.isShowListPlayer = false;
+    }
   },
 };
