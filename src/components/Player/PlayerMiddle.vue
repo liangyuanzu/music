@@ -77,21 +77,30 @@ export default class PlayerMiddle extends Vue {
   @Watch('curTime')
   onCurTimeChanged(val: number) {
     // 高亮歌词同步
-    const lineNum = Math.floor(val).toString();
-    if (Object.keys(this.currentLyric).includes(lineNum)) {
-      this.currentLineNum = lineNum;
-      // 歌词滚动同步
-      const currentLyricTop = (document as any).querySelector('.lyric .active')
-        .offsetTop;
-      const lyricHeight = (this.$refs.lyric as any).$el.offsetHeight;
-      if (currentLyricTop > lyricHeight / 2) {
-        (this.$refs.scrollView as any).scrollTo(
-          0,
-          lyricHeight / 2 - currentLyricTop,
-          100
-        );
-      }
+    const lineNum = Math.floor(val);
+    this.currentLineNum = this.getActiveLineNum(lineNum);
+    // 歌词滚动同步
+    const currentLyricTop = (document as any).querySelector('.lyric .active')
+      .offsetTop;
+    const lyricHeight = (this.$refs.lyric as any).$el.offsetHeight;
+    if (currentLyricTop > lyricHeight / 2) {
+      (this.$refs.scrollView as any).scrollTo(
+        0,
+        lyricHeight / 2 - currentLyricTop,
+        100
+      );
+    } else {
+      (this.$refs.scrollView as any).scrollTo(0, 0, 100);
     }
+  }
+
+  getActiveLineNum(lineNum: number) {
+    let line = lineNum;
+    if (Object.keys(this.currentLyric).includes(`${line}`)) {
+      return `${line}`;
+    }
+    line -= 1;
+    return this.getActiveLineNum(line);
   }
 }
 </script>
