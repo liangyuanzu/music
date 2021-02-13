@@ -61,3 +61,15 @@ export function formatTime(time: number): object {
     second,
   };
 }
+
+/**
+ * 生成随机数 (含最大值，含最小值)
+ * @param {number} min 最小值
+ * @param {number} max 最大值
+ * @return {number}
+ */
+export function getRandomIntInclusive(min: number, max: number): number {
+  const newMin = Math.ceil(min);
+  const newMax = Math.floor(max);
+  return Math.floor(Math.random() * (newMax - newMin + 1)) + newMin;
+}

@@ -3,13 +3,20 @@
     <NormalPlayer :curTime="curTime"></NormalPlayer>
     <MiniPlayer></MiniPlayer>
     <ListPlayer></ListPlayer>
-    <audio :src="currentSong.url" ref="audio" @timeupdate="timeupdate"></audio>
+    <audio
+      :src="currentSong.url"
+      ref="audio"
+      @timeupdate="timeupdate"
+      @ended="end"
+    ></audio>
   </div>
 </template>
 
 <script lang='ts'>
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { Getter, Action } from 'vuex-class';
+import config from '@/config/config';
+import { getRandomIntInclusive } from '@/helpers';
 import NormalPlayer from '../components/Player/NormalPlayer.vue';
 import MiniPlayer from '../components/Player/MiniPlayer.vue';
 import ListPlayer from '../components/Player/ListPlayer.vue';
@@ -33,7 +40,13 @@ export default class Player extends Vue {
 
   @Getter('currentTime') currentTime;
 
+  @Getter('modeType') modeType;
+
+  @Getter('songs') songs;
+
   @Action('setTotalTime') setTotalTime;
+
+  @Action('setCurrentIndex') setCurrentIndex;
 
   @Watch('isPlaying')
   onIsPlayingChanged(val: boolean) {
@@ -69,6 +82,17 @@ export default class Player extends Vue {
 
   timeupdate(e) {
     this.curTime = e.target.currentTime;
+  }
+
+  end() {
+    if (this.modeType === (config as any).mode.loop) {
+      this.setCurrentIndex(this.currentIndex + 1);
+    } else if (this.modeType === (config as any).mode.one) {
+      (this.$refs.audio as any).play();
+    } else if (this.modeType === (config as any).mode.random) {
+      const index = getRandomIntInclusive(0, this.songs.length - 1);
+      this.setCurrentIndex(index);
+    }
   }
 }
 </script>
