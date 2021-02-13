@@ -2,7 +2,7 @@
   <div class="player-bottom">
     <div class="bottom-progress">
       <span ref="eleCurrentTime">00:00</span>
-      <div class="progress-bar" @click="progressClick">
+      <div class="progress-bar" @click="progressClick" ref="progressBar">
         <div class="progress-line" ref="progressLine">
           <div class="progress-dot"></div>
         </div>
@@ -112,10 +112,10 @@ export default class PlayerBottom extends Vue {
 
   progressClick(e) {
     // 计算进度条的位置
-    const normalLeft = e.target.offsetLeft;
+    const normalLeft = (this.$refs.progressBar as any).offsetLeft;
     const eventLeft = e.pageX;
     const clickLeft = eventLeft - normalLeft;
-    const progressWidth = e.target.offsetWidth;
+    const progressWidth = (this.$refs.progressBar as any).offsetWidth;
     const value = clickLeft / progressWidth;
     (this.$refs.progressLine as any).style.width = `${value * 100}%`;
 
