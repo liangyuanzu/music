@@ -3,7 +3,7 @@
     <div class="normal-player" v-show="isFullScreen">
       <div class="player-warpper">
         <PlayerHeader></PlayerHeader>
-        <PlayerMiddle></PlayerMiddle>
+        <PlayerMiddle :curTime="curTime"></PlayerMiddle>
         <PlayerBottom :curTime="curTime"></PlayerBottom>
       </div>
       <div class="player-bg">

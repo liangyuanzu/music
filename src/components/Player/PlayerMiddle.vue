@@ -10,7 +10,13 @@
       <swiper-slide class="lyric">
         <ScrollView>
           <ul>
-            <li v-for="(val, index) in currentLyric" :key="index">{{ val }}</li>
+            <li
+              v-for="(val, key) in currentLyric"
+              :key="key"
+              :class="{ active: currentLineNum === key }"
+            >
+              {{ val }}
+            </li>
           </ul>
         </ScrollView>
       </swiper-slide>
@@ -20,7 +26,7 @@
 </template>
 
 <script lang='ts'>
-import { Component, Vue, Watch } from 'vue-property-decorator';
+import { Component, Vue, Watch, Prop } from 'vue-property-decorator';
 import { swiper, swiperSlide } from 'vue-awesome-swiper';
 import { Getter } from 'vuex-class';
 import ScrollView from '../ScrollView.vue';
@@ -45,9 +51,13 @@ export default class PlayerMiddle extends Vue {
     observeSlideChildren: true,
   };
 
+  currentLineNum = '0';
+
   get firstLyric() {
     return Object.values(this.currentLyric)[0];
   }
+
+  @Prop({ default: 0, required: true }) curTime: number;
 
   @Getter('isPlaying') isPlaying;
 
@@ -61,6 +71,14 @@ export default class PlayerMiddle extends Vue {
       (this.$refs.cdWrapper as any).classList.add('active');
     } else {
       (this.$refs.cdWrapper as any).classList.remove('active');
+    }
+  }
+
+  @Watch('curTime')
+  onCurTimeChanged(val: number) {
+    const lineNum = Math.floor(val).toString();
+    if (Object.keys(this.currentLyric).includes(lineNum)) {
+      this.currentLineNum = lineNum;
     }
   }
 }
@@ -110,6 +128,9 @@ export default class PlayerMiddle extends Vue {
       margin: 10px 0;
       &:last-of-type {
         padding-bottom: 100px;
+      }
+      &.active {
+        color: #fff;
       }
     }
   }
