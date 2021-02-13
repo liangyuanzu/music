@@ -58,6 +58,10 @@ export default class ScrollView extends Vue {
       this.iscroll.refresh();
     });
   }
+
+  scrollTo(x: number, y: number, time: number) {
+    this.iscroll.scrollTo(x, y, time);
+  }
 }
 </script>
 

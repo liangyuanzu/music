@@ -7,8 +7,8 @@
         </div>
         <p>{{ firstLyric }}</p>
       </swiper-slide>
-      <swiper-slide class="lyric">
-        <ScrollView>
+      <swiper-slide class="lyric" ref="lyric">
+        <ScrollView ref="scrollView">
           <ul>
             <li
               v-for="(val, key) in currentLyric"
@@ -76,9 +76,21 @@ export default class PlayerMiddle extends Vue {
 
   @Watch('curTime')
   onCurTimeChanged(val: number) {
+    // 高亮歌词同步
     const lineNum = Math.floor(val).toString();
     if (Object.keys(this.currentLyric).includes(lineNum)) {
       this.currentLineNum = lineNum;
+      // 歌词滚动同步
+      const currentLyricTop = (document as any).querySelector('.lyric .active')
+        .offsetTop;
+      const lyricHeight = (this.$refs.lyric as any).$el.offsetHeight;
+      if (currentLyricTop > lyricHeight / 2) {
+        (this.$refs.scrollView as any).scrollTo(
+          0,
+          lyricHeight / 2 - currentLyricTop,
+          100
+        );
+      }
     }
   }
 }
@@ -127,7 +139,7 @@ export default class PlayerMiddle extends Vue {
       @include font_color();
       margin: 10px 0;
       &:last-of-type {
-        padding-bottom: 100px;
+        padding-bottom: 50%;
       }
       &.active {
         color: #fff;
