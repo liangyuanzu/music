@@ -2,7 +2,7 @@
   <div class="header" @click="changeTheme">
     <div class="left"></div>
     <div class="title">网易云音乐</div>
-    <div class="right"></div>
+    <div class="right" @click.stop="accountClick"></div>
   </div>
 </template>
 
@@ -18,10 +18,16 @@ export default class Header extends Vue {
   index = 0;
 
   changeTheme() {
-    // eslint-disable-next-line no-plusplus
-    this.index++;
+    this.index += 1;
     if (this.index >= this.themes.length) this.index = 0;
-    document.documentElement.setAttribute('data-theme', this.themes[this.index]);
+    document.documentElement.setAttribute(
+      'data-theme',
+      this.themes[this.index]
+    );
+  }
+
+  accountClick() {
+    this.$router.push('/account');
   }
 }
 </script>
@@ -30,25 +36,26 @@ export default class Header extends Vue {
 @import '../assets/css/variable';
 @import '../assets/css/mixin';
 
-.header{
+.header {
   width: 100%;
   height: 100px;
   display: flex;
   justify-content: space-between;
   @include bg_color();
 
-  .left, .right {
+  .left,
+  .right {
     width: 84px;
     height: 84px;
     margin-top: 8px;
   }
 
-  .left{
-    @include bg_img('../assets/images/logo')
+  .left {
+    @include bg_img('../assets/images/logo');
   }
 
-  .right{
-    @include bg_img('../assets/images/account')
+  .right {
+    @include bg_img('../assets/images/account');
   }
 
   .title {
@@ -56,7 +63,7 @@ export default class Header extends Vue {
     line-height: 100px;
     color: #fff;
     font-weight: bold;
-    @include font_size($font_medium)
+    @include font_size($font_medium);
   }
 }
 </style>

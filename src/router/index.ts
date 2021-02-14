@@ -7,6 +7,7 @@ const Detail = () => import('../views/Detail.vue');
 const Singer = () => import('../views/Singer.vue');
 const Rank = () => import('../views/Rank.vue');
 const Search = () => import('../views/Search.vue');
+const Account = () => import('../views/Account.vue');
 
 Vue.use(VueRouter);
 
@@ -25,6 +26,7 @@ const routes: Array<RouteConfig> = [
   { path: '/singer', component: Singer },
   { path: '/rank', component: Rank },
   { path: '/search', component: Search },
+  { path: '/account', component: Account },
 ];
 
 const router = new VueRouter({
