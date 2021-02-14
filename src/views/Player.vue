@@ -46,16 +46,23 @@ export default class Player extends Vue {
 
   @Getter('favoriteList') favoriteList;
 
+  @Getter('historyList') historyList;
+
   @Action('setTotalTime') setTotalTime;
 
   @Action('setCurrentIndex') setCurrentIndex;
 
   @Action('setFavoriteList') setFavoriteList;
 
+  @Action('setHistorySong') setHistorySong;
+
+  @Action('setHistoryList') setHistoryList;
+
   @Watch('isPlaying')
   onIsPlayingChanged(val: boolean) {
     if (val) {
       (this.$refs.audio as any).play();
+      this.setHistorySong(this.currentSong);
     } else {
       (this.$refs.audio as any).pause();
     }
@@ -67,6 +74,7 @@ export default class Player extends Vue {
       this.setTotalTime((this.$refs.audio as any).duration);
       if (this.isPlaying) {
         (this.$refs.audio as any).play();
+        this.setHistorySong(this.currentSong);
       } else {
         (this.$refs.audio as any).pause();
       }
@@ -83,9 +91,16 @@ export default class Player extends Vue {
     localStore.set('favoriteList', list);
   }
 
+  @Watch('historyList')
+  onHistoryListChanged(list: Array<object>) {
+    localStore.set('historyList', list);
+  }
+
   created() {
     const favoriteList = localStore.get('favoriteList');
     if (favoriteList) this.setFavoriteList(favoriteList);
+    const historyList = localStore.get('historyList');
+    if (historyList) this.setHistoryList(historyList);
   }
 
   mounted() {

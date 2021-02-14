@@ -18,6 +18,8 @@ import {
   SET_TOTAL_TIME,
   SET_FAVORITE_SONG,
   SET_FAVORITE_LIST,
+  SET_HISTORY_SONG,
+  SET_HISTORY_LIST,
 } from './mutations-type';
 
 export default {
@@ -121,5 +123,19 @@ export default {
 
   [SET_FAVORITE_LIST](state, list: Array<object>) {
     state.favoriteList = list;
+  },
+
+  [SET_HISTORY_SONG](state, song: any) {
+    const index = state.historyList.findIndex((val) => val.id === song.id);
+    if (index === -1) {
+      if (state.historyList.length >= 30) {
+        state.historyList.pop();
+      }
+      state.historyList.unshift(song);
+    }
+  },
+
+  [SET_HISTORY_LIST](state, list: Array<object>) {
+    state.historyList = list;
   },
 };

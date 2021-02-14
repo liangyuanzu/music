@@ -78,4 +78,8 @@ export default {
   favoriteList(state): Array<object> {
     return state.favoriteList;
   },
+
+  historyList(state): Array<object> {
+    return state.historyList;
+  },
 };
