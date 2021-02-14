@@ -16,6 +16,8 @@ import {
   SET_CURRENT_INDEX,
   SET_CURRENT_TIME,
   SET_TOTAL_TIME,
+  SET_FAVORITE_SONG,
+  SET_FAVORITE_LIST,
 } from './mutations-type';
 
 export default {
@@ -106,5 +108,18 @@ export default {
 
   [SET_TOTAL_TIME](state, time: number) {
     state.totalTime = time;
+  },
+
+  [SET_FAVORITE_SONG](state, song: any) {
+    const index = state.favoriteList.findIndex((val) => val.id === song.id);
+    if (index === -1) {
+      state.favoriteList.push(song);
+    } else {
+      state.favoriteList.splice(index, 1);
+    }
+  },
+
+  [SET_FAVORITE_LIST](state, list: Array<object>) {
+    state.favoriteList = list;
   },
 };

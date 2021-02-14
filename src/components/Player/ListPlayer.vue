@@ -31,7 +31,11 @@
                   <p>{{ item.name }}</p>
                 </div>
                 <div class="item-right">
-                  <div class="item-favorite"></div>
+                  <div
+                    class="item-favorite"
+                    :class="{ active: isFavorite(item) }"
+                    @click.stop="favorite(item)"
+                  ></div>
                   <div class="item-del" @click.stop="del(index)"></div>
                 </div>
               </li>
@@ -71,6 +75,8 @@ export default class ListPlayer extends Vue {
 
   @Getter('currentIndex') currentIndex;
 
+  @Getter('favoriteList') favoriteList;
+
   @Action('setListPlayer') setListPlayer;
 
   @Action('setIsPlaying') setIsPlaying;
@@ -80,6 +86,8 @@ export default class ListPlayer extends Vue {
   @Action('setDelSong') setDelSong;
 
   @Action('setCurrentIndex') setCurrentIndex;
+
+  @Action('setFavoriteSong') setFavoriteSong;
 
   @Watch('isPlaying')
   onIsPlayingChanged(val: boolean) {
@@ -139,6 +147,15 @@ export default class ListPlayer extends Vue {
     } else if (this.modeType === (config as any).mode.random) {
       this.setModeType((config as any).mode.loop);
     }
+  }
+
+  isFavorite(song: any): boolean {
+    const index = this.favoriteList.findIndex((val) => val.id === song.id);
+    return index !== -1;
+  }
+
+  favorite(song: object) {
+    this.setFavoriteSong(song);
   }
 
   del(index: number) {
@@ -245,6 +262,9 @@ export default class ListPlayer extends Vue {
             width: 56px;
             height: 56px;
             @include bg_img('../../assets/images/small_un_favorite');
+            &.active {
+              @include bg_img('../../assets/images/small_favorite');
+            }
           }
           .item-del {
             width: 52px;

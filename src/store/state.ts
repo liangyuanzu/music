@@ -18,4 +18,5 @@ export default {
   currentLyric: {},
   currentTime: 0, // 当前播放时间
   totalTime: 0, // 当前歌曲总时长
+  favoriteList: []
 };

@@ -16,7 +16,7 @@
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { Getter, Action } from 'vuex-class';
 import config from '@/config/config';
-import { getRandomIntInclusive } from '@/helpers';
+import { getRandomIntInclusive, localStore } from '@/helpers';
 import NormalPlayer from '../components/Player/NormalPlayer.vue';
 import MiniPlayer from '../components/Player/MiniPlayer.vue';
 import ListPlayer from '../components/Player/ListPlayer.vue';
@@ -44,9 +44,13 @@ export default class Player extends Vue {
 
   @Getter('songs') songs;
 
+  @Getter('favoriteList') favoriteList;
+
   @Action('setTotalTime') setTotalTime;
 
   @Action('setCurrentIndex') setCurrentIndex;
+
+  @Action('setFavoriteList') setFavoriteList;
 
   @Watch('isPlaying')
   onIsPlayingChanged(val: boolean) {
@@ -72,6 +76,16 @@ export default class Player extends Vue {
   @Watch('currentTime')
   onCurrentTimeChanged(val: number) {
     (this.$refs.audio as any).currentTime = val;
+  }
+
+  @Watch('favoriteList')
+  onFavoriteListChanged(list: Array<object>) {
+    localStore.set('favoriteList', list);
+  }
+
+  created() {
+    const favoriteList = localStore.get('favoriteList');
+    if (favoriteList) this.setFavoriteList(favoriteList);
   }
 
   mounted() {

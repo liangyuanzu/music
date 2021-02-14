@@ -14,7 +14,11 @@
       <div class="prev" @click="prev"></div>
       <div class="play" @click="play" ref="play"></div>
       <div class="next" @click="next"></div>
-      <div class="favorite"></div>
+      <div
+        class="favorite"
+        :class="{ active: isFavorite }"
+        @click="favorite"
+      ></div>
     </div>
   </div>
 </template>
@@ -29,6 +33,13 @@ import { formatTime } from '@/helpers';
   name: 'PlayerBottom',
 })
 export default class PlayerBottom extends Vue {
+  get isFavorite(): boolean {
+    const index = this.favoriteList.findIndex(
+      (val) => val.id === this.currentSong.id
+    );
+    return index !== -1;
+  }
+
   @Prop({ default: 0, required: true }) curTime: number;
 
   @Getter('isPlaying') isPlaying;
@@ -39,6 +50,10 @@ export default class PlayerBottom extends Vue {
 
   @Getter('totalTime') totalTime;
 
+  @Getter('currentSong') currentSong;
+
+  @Getter('favoriteList') favoriteList;
+
   @Action('setIsPlaying') setIsPlaying;
 
   @Action('setModeType') setModeType;
@@ -46,6 +61,8 @@ export default class PlayerBottom extends Vue {
   @Action('setCurrentIndex') setCurrentIndex;
 
   @Action('setCurrentTime') setCurrentTime;
+
+  @Action('setFavoriteSong') setFavoriteSong;
 
   @Watch('isPlaying')
   onIsPlayingChanged(val: boolean) {
@@ -108,6 +125,10 @@ export default class PlayerBottom extends Vue {
     } else if (this.modeType === (config as any).mode.random) {
       this.setModeType((config as any).mode.loop);
     }
+  }
+
+  favorite() {
+    this.setFavoriteSong(this.currentSong);
   }
 
   progressClick(e) {
@@ -204,6 +225,9 @@ export default class PlayerBottom extends Vue {
     }
     .favorite {
       @include bg_img('../../assets/images/un_favorite');
+      &.active {
+        @include bg_img('../../assets/images/favorite');
+      }
     }
   }
 }

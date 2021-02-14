@@ -74,4 +74,8 @@ export default {
   totalTime(state): number {
     return state.totalTime;
   },
+
+  favoriteList(state): Array<object> {
+    return state.favoriteList;
+  },
 };

@@ -28,6 +28,8 @@ import {
   SET_CURRENT_INDEX,
   SET_CURRENT_TIME,
   SET_TOTAL_TIME,
+  SET_FAVORITE_SONG,
+  SET_FAVORITE_LIST,
 } from './mutations-type';
 
 export default {
@@ -129,5 +131,13 @@ export default {
 
   setTotalTime({ commit }, time: number) {
     commit(SET_TOTAL_TIME, time);
+  },
+
+  setFavoriteSong({ commit }, song: object) {
+    commit(SET_FAVORITE_SONG, song);
+  },
+
+  setFavoriteList({ commit }, list: Array<object>) {
+    commit(SET_FAVORITE_LIST, list);
   },
 };

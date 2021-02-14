@@ -73,3 +73,28 @@ export function getRandomIntInclusive(min: number, max: number): number {
   const newMax = Math.floor(max);
   return Math.floor(Math.random() * (newMax - newMin + 1)) + newMin;
 }
+
+/**
+ * 对象转字符串
+ * @return {any}
+ */
+export function obj2string(data: any): any {
+  if (typeof data === 'string' || typeof data === 'number') return data;
+  if (typeof data === 'object') return JSON.stringify(data);
+  return '';
+}
+
+/**
+ * 字符串转对象
+ * @return {any}
+ */
+export function string2obj(data: any): any {
+  if (!data) return '';
+  let value;
+  try {
+    value = JSON.parse(data);
+  } catch {
+    value = data;
+  }
+  return value;
+}
