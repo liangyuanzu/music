@@ -1,14 +1,20 @@
 <template>
   <transition appear>
-    <div class="account"></div>
+    <div class="account">
+      <AccountHeader></AccountHeader>
+    </div>
   </transition>
 </template>
 
 <script lang='ts'>
 import { Component, Vue } from 'vue-property-decorator';
+import AccountHeader from '../components/Account/AccountHeader.vue';
 
 @Component({
   name: 'Account',
+  components: {
+    AccountHeader,
+  },
 })
 export default class Account extends Vue {}
 </script>
