@@ -24,6 +24,7 @@ export default class AccountHeader extends Vue {
 
   switchItem(num: number) {
     this.switchNum = num;
+    this.$emit('switchItem', num);
   }
 }
 </script>

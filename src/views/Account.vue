@@ -1,7 +1,8 @@
 <template>
   <transition appear>
     <div class="account">
-      <AccountHeader></AccountHeader>
+      <AccountHeader @switchItem="switchItem"></AccountHeader>
+      <AccountBottom :switchNum="switchNum"></AccountBottom>
     </div>
   </transition>
 </template>
@@ -9,24 +10,35 @@
 <script lang='ts'>
 import { Component, Vue } from 'vue-property-decorator';
 import AccountHeader from '../components/Account/AccountHeader.vue';
+import AccountBottom from '../components/Account/AccountBottom.vue';
 
 @Component({
   name: 'Account',
   components: {
     AccountHeader,
+    AccountBottom,
   },
 })
-export default class Account extends Vue {}
+export default class Account extends Vue {
+  switchNum = 0;
+
+  switchItem(num: number) {
+    this.switchNum = num;
+  }
+}
 </script>
 
 <style lang='scss' scoped>
+@import '@/assets/css/variable';
+@import '@/assets/css/mixin';
+
 .account {
   position: fixed;
   left: 0;
   top: 0;
   right: 0;
   bottom: 0;
-  background: red;
+  @include bg_sub_color();
 }
 
 .v-enter {
