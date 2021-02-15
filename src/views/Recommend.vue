@@ -16,7 +16,7 @@
             type="album"
             @select="fatherSelectItem"
           ></Personalized>
-          <SongList :newSongs="newSongs"></SongList>
+          <NewSongs :newSongs="newSongs"></NewSongs>
         </div>
       </ScrollView>
     </div>
@@ -32,7 +32,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import { Getter, Action } from 'vuex-class';
 import Banner from '../components/Recommend/Banner.vue';
 import Personalized from '../components/Recommend/Personalized.vue';
-import SongList from '../components/Recommend/SongList.vue';
+import NewSongs from '../components/Recommend/NewSongs.vue';
 import ScrollView from '../components/ScrollView.vue';
 
 @Component({
@@ -40,7 +40,7 @@ import ScrollView from '../components/ScrollView.vue';
   components: {
     Banner,
     Personalized,
-    SongList,
+    NewSongs,
     ScrollView,
   },
 })
