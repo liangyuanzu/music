@@ -132,6 +132,10 @@ export default {
         state.historyList.pop();
       }
       state.historyList.unshift(song);
+    } else {
+      const item = state.historyList[index];
+      state.historyList.splice(index, 1);
+      state.historyList.unshift(item);
     }
   },
 
