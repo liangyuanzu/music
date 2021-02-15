@@ -70,7 +70,7 @@ export default class Player extends Vue {
 
   @Watch('currentIndex')
   onCurrentIndexChanged() {
-    (this.$refs.audio as any).oncanplay = () => {
+    (this.$refs.audio as any).ondurationchange = () => {
       this.setTotalTime((this.$refs.audio as any).duration);
       if (this.isPlaying) {
         (this.$refs.audio as any).play();
@@ -104,7 +104,7 @@ export default class Player extends Vue {
   }
 
   mounted() {
-    (this.$refs.audio as any).oncanplay = () => {
+    (this.$refs.audio as any).ondurationchange = () => {
       this.setTotalTime((this.$refs.audio as any).duration);
     };
   }
