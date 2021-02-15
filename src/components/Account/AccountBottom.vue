@@ -2,7 +2,7 @@
   <div class="account-bottom">
     <div class="bottom-play">
       <span></span>
-      <span>播放全部</span>
+      <span @click="selectAllMusic">播放全部</span>
     </div>
     <div class="bottom-wrapper">
       <ScrollView>
@@ -16,7 +16,7 @@
 
 <script lang='ts'>
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import { Getter } from 'vuex-class';
+import { Getter, Action } from 'vuex-class';
 import ScrollView from '../ScrollView.vue';
 import SongListItem from '../SongListItem.vue';
 
@@ -33,6 +33,21 @@ export default class AccountBottom extends Vue {
   @Getter('favoriteList') favoriteList;
 
   @Getter('historyList') historyList;
+
+  @Action('setFullScreen') setFullScreen;
+
+  @Action('setSongDetail') setSongDetail;
+
+  selectAllMusic() {
+    this.setFullScreen(true);
+    let ids = [];
+    if (this.switchNum === 0) {
+      ids = this.favoriteList.map((i: any) => i.id);
+    } else {
+      ids = this.historyList.map((i: any) => i.id);
+    }
+    this.setSongDetail(ids);
+  }
 }
 </script>
 
