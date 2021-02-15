@@ -51,8 +51,25 @@ export default {
   },
 
   async getNewSongData({ commit }, limit?: number) {
-    const { result } = await getNewSong(limit);
-    commit(SET_NEW_SONGS, result);
+    const { result: songs } = await getNewSong(limit);
+    const list: any = [];
+    songs.forEach((val) => {
+      const obj: any = {};
+      obj.id = val.id;
+      obj.name = val.name;
+      obj.picUrl = val.song.album.picUrl;
+      let singer = '';
+      val.song.artists.forEach((item, index) => {
+        if (index === 0) {
+          singer = item.name;
+        } else {
+          singer += `-${item.name}`;
+        }
+      });
+      obj.singer = singer;
+      list.push(obj);
+    });
+    commit(SET_NEW_SONGS, list);
   },
 
   async getDetailData({ commit }, id: number) {
