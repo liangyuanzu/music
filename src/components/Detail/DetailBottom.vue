@@ -30,7 +30,6 @@ export default class DetailBottom extends Vue {
 
   @Action('setFullScreen') setFullScreen;
 
-
   @Action('setSongDetail') setSongDetail;
 
   selectMusic(id: number) {

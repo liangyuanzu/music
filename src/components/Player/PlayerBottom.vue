@@ -165,16 +165,19 @@ export default class PlayerBottom extends Vue {
     span {
       @include font_size($font_small);
       @include font_color();
+      &:nth-of-type(1) {
+        color: #fff;
+      }
     }
     .progress-bar {
       width: 100%;
-      margin: 0 10px;
+      margin: 0 20px;
       height: 10px;
-      background: #fff;
+      background: #ccc;
       .progress-line {
         width: 0%;
         height: 100%;
-        background: #ccc;
+        background: #fff;
         position: relative;
         .progress-dot {
           width: 20px;

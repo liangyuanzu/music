@@ -89,7 +89,7 @@ export default class NormalPlayer extends Vue {
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
-      filter: blur(10px);
+      filter: blur(10px) brightness(50%);
     }
   }
 }

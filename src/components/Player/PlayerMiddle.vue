@@ -145,7 +145,7 @@ export default class PlayerMiddle extends Vue {
     p {
       text-align: center;
       @include font_size($font_medium);
-      @include font_color();
+      color: #fff;
       margin-top: 50px;
     }
   }
@@ -153,7 +153,7 @@ export default class PlayerMiddle extends Vue {
     li {
       text-align: center;
       @include font_size($font_medium);
-      @include font_color();
+      color: #888;
       margin: 10px 0;
       &:last-of-type {
         padding-bottom: 50%;
