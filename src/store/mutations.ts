@@ -118,7 +118,7 @@ export default {
   [SET_FAVORITE_SONG](state, song: any) {
     const index = state.favoriteList.findIndex((val) => val.id === song.id);
     if (index === -1) {
-      state.favoriteList.push(song);
+      state.favoriteList.unshift(song);
     } else {
       state.favoriteList.splice(index, 1);
     }
