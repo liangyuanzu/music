@@ -32,15 +32,19 @@ export default class DetailBottom extends Vue {
 
   @Action('setSongDetail') setSongDetail;
 
+  @Action('setCurrentIndex') setCurrentIndex;
+
   selectMusic(id: number) {
     this.setFullScreen(true);
     this.setSongDetail([id]);
+    this.setCurrentIndex(0);
   }
 
   selectAllMusic() {
     this.setFullScreen(true);
     const ids = this.playlist.map((i: any) => i.id);
     this.setSongDetail(ids);
+    this.setCurrentIndex(0);
   }
 }
 </script>

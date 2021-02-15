@@ -29,9 +29,12 @@ export default class SongListItem extends Vue {
 
   @Action('setSongDetail') setSongDetail;
 
+  @Action('setCurrentIndex') setCurrentIndex;
+
   selectMusic(id: number) {
     this.setFullScreen(true);
     this.setSongDetail([id]);
+    this.setCurrentIndex(0);
   }
 }
 </script>
