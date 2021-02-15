@@ -16,7 +16,7 @@
 
 <script lang='ts'>
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import { Getter, Action } from 'vuex-class';
+import { Getter, Mutation, Action } from 'vuex-class';
 import ScrollView from '../ScrollView.vue';
 import SongListItem from '../SongListItem.vue';
 
@@ -34,19 +34,20 @@ export default class AccountBottom extends Vue {
 
   @Getter('historyList') historyList;
 
+  @Mutation('SET_SONG_DETAIL') SET_SONG_DETAIL;
+
   @Action('setFullScreen') setFullScreen;
 
-  @Action('setSongDetail') setSongDetail;
+  @Action('setCurrentIndex') setCurrentIndex;
 
   selectAllMusic() {
-    this.setFullScreen(true);
-    let ids = [];
     if (this.switchNum === 0) {
-      ids = this.favoriteList.map((i: any) => i.id);
+      this.SET_SONG_DETAIL(this.favoriteList);
     } else {
-      ids = this.historyList.map((i: any) => i.id);
+      this.SET_SONG_DETAIL(this.historyList);
     }
-    this.setSongDetail(ids);
+    this.setFullScreen(true);
+    this.setCurrentIndex(0);
   }
 }
 </script>
