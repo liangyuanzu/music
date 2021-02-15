@@ -19,12 +19,9 @@ import { Getter, Action } from 'vuex-class';
 export default class PlayerHeader extends Vue {
   @Getter('currentSong') currentSong;
 
-  @Action('setFullScreen') setFullScreen;
-
   @Action('setMiniPlayer') setMiniPlayer;
 
   hiddenNormalPlayer() {
-    this.setFullScreen(false);
     this.setMiniPlayer(true);
   }
 }

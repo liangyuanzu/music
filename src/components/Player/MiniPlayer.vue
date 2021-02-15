@@ -36,8 +36,6 @@ export default class MiniPlayer extends Vue {
 
   @Action('setFullScreen') setFullScreen;
 
-  @Action('setMiniPlayer') setMiniPlayer;
-
   @Action('setListPlayer') setListPlayer;
 
   @Action('setIsPlaying') setIsPlaying;

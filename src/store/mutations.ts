@@ -56,6 +56,9 @@ export default {
 
   [SET_MINI_PLAYER](state, flag: boolean) {
     state.isShowMiniPlayer = flag;
+    if (flag) {
+      state.isFullScreen = false;
+    }
   },
 
   [SET_LIST_PLAYER](state, flag: boolean) {
