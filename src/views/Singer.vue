@@ -237,7 +237,7 @@ export default class Singer extends Vue {
     .list-letters {
       position: fixed;
       right: 10px;
-      top: 60%;
+      top: 55%;
       transform: translateY(-50%);
       li {
         @include font_color();
