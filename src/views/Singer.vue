@@ -91,6 +91,29 @@ export default class Singer extends Vue {
     this.setArtistList(list);
   }
 
+  mounted() {
+    this.$nextTick(() => {
+      (this.$refs.scrollview as any).scrolling((y) => {
+        // 处理第一个区域
+        if (y >= 0) {
+          this.currentIndex = 0;
+          return;
+        }
+        // 处理中间区域
+        for (let i = 0; i < this.groupsTop.length - 1; i += 1) {
+          const preTop = this.groupsTop[i];
+          const nextTop = this.groupsTop[i + 1];
+          if (-y >= preTop && -y <= nextTop) {
+            this.currentIndex = i;
+            return;
+          }
+        }
+        // 处理最后一个区域
+        this.currentIndex = this.groupsTop.length - 1;
+      });
+    });
+  }
+
   private letterDown(index: number) {
     this.currentIndex = index;
     const offsetY = this.groupsTop[index];
