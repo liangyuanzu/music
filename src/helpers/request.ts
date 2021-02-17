@@ -2,7 +2,7 @@ import axios from 'axios';
 
 axios.interceptors.request.use(
   (config: any) => config,
-  (error: any) => Promise.reject(error),
+  (error: any) => Promise.reject(error)
 );
 
 axios.interceptors.response.use(
@@ -28,27 +28,41 @@ axios.interceptors.response.use(
     }
 
     return Promise.reject(error);
-  },
+  }
 );
 
-const $request = (url: string, Options?: any) => new Promise((resolve, reject) => {
-  axios({
-    baseURL: '/',
-    data: Options.data, // post 传参
-    method: Options.method || 'GET',
-    params: Options.params, // get 传参
-    url,
-    ...Options,
-  })
-    .then((res) => {
-      if (res.data.code === 200) {
-        resolve(res.data);
-      } else {
-        reject(res.data);
-      }
+export const $request = (url: string, Options?: any) =>
+  new Promise((resolve, reject) => {
+    axios({
+      baseURL: '/',
+      data: Options.data, // post 传参
+      method: Options.method || 'GET',
+      params: Options.params, // get 传参
+      url,
+      ...Options,
     })
-    .catch((err) => {
-      reject(err);
-    });
-});
-export default $request;
+      .then((res) => {
+        if (res.data.code === 200) {
+          resolve(res.data);
+        } else {
+          reject(res.data);
+        }
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+
+export const $requestAll = (list: any) =>
+  new Promise((resolve, reject) => {
+    axios
+      .all(list)
+      .then(
+        axios.spread((...res) => {
+          resolve(res);
+        })
+      )
+      .catch((err) => {
+        reject(err);
+      });
+  });

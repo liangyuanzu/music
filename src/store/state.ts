@@ -20,4 +20,5 @@ export default {
   totalTime: 0, // 当前歌曲总时长
   favoriteList: [],
   historyList: [], // 播放历史
+  artistList: [], // 歌手列表
 };

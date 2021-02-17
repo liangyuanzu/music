@@ -1,4 +1,4 @@
-import { $request } from '@/helpers';
+import { $request, $requestAll } from '@/helpers';
 
 /**
  * 获取 Banner 数据
@@ -88,5 +88,48 @@ export function getSongLyric(id: number): Promise<any> {
     params: {
       id,
     },
+  });
+}
+
+/**
+ * 歌手分类列表
+ * @param {number} limit 返回数量 , 默认为 30
+ * @param {number} offset 偏移数量，用于分页, 默认为 0
+ * @param {string} initial 按首字母索引查找参数 热门传-1, #传0
+ * @param {number} type -1:全部 1:男歌手 2:女歌手 3:乐队
+ * @param {number} area -1:全部 7华语 96欧美 8:日本 16韩国 0:其他
+ * */
+export function getArtistList({
+  initial,
+  limit = 30,
+  offset = 0,
+  type = -1,
+  area = -1,
+}): Promise<any> {
+  return $request('/api/artist/list', {
+    params: {
+      limit,
+      offset,
+      initial,
+      type,
+      area,
+    },
+  });
+}
+
+/**
+ * 获取所有歌手分类列表
+ * @param Array<object> list 每个请求的参数列表
+ * */
+export function getAllArtists(list: Array<object>): Promise<any> {
+  const requests = list.map((item: any) => getArtistList(item));
+  return new Promise((resolve, reject) => {
+    $requestAll(requests)
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((err) => {
+        reject(err);
+      });
   });
 }

@@ -82,4 +82,8 @@ export default {
   historyList(state): Array<object> {
     return state.historyList;
   },
+
+  artistList(state): Array<object> {
+    return state.artistList;
+  },
 };
