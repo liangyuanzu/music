@@ -35,7 +35,9 @@
           {{ letter }}
         </li>
       </ul>
-      <div class="fix-title" v-show="fixTitle">{{ fixTitle }}</div>
+      <div class="fix-title" v-show="fixTitle" ref="fixTitle">
+        {{ fixTitle }}
+      </div>
     </div>
   </div>
 </template>
@@ -62,6 +64,10 @@ export default class Singer extends Vue {
 
   scrollY = 0;
 
+  fixTitleHeight = 0;
+
+  fixTitleOffsetY = 0;
+
   get letters() {
     const keys = ['热'];
     for (let i = 65; i < 91; i += 1) {
@@ -85,6 +91,13 @@ export default class Singer extends Vue {
   onArtistListChanged() {
     this.$nextTick(() => {
       this.groupsTop = (this.$refs.group as any).map((i) => i.offsetTop);
+    });
+  }
+
+  @Watch('fixTitle')
+  onFixTitleChanged() {
+    this.$nextTick(() => {
+      this.fixTitleHeight = (this.$refs.fixTitle as any).offsetHeight;
     });
   }
 
@@ -114,6 +127,21 @@ export default class Singer extends Vue {
           const nextTop = this.groupsTop[i + 1];
           if (-y >= preTop && -y <= nextTop) {
             this.currentIndex = i;
+            // 1.用下一组标题的偏移位 + 当前滚动出去的偏移位
+            const diffOffsetY: any = nextTop + y;
+            let fixTitleOffsetY = 0;
+            // 2.判断计算的结果是否是 0 ~ 分组标题高度的值
+            if (diffOffsetY >= 0 && diffOffsetY <= this.fixTitleHeight) {
+              // 满足条件开始移动上一组标题
+              fixTitleOffsetY = diffOffsetY - this.fixTitleHeight;
+            } else {
+              // 不满足条件需要固定在顶部
+              fixTitleOffsetY = 0;
+            }
+            if (fixTitleOffsetY === this.fixTitleOffsetY) return;
+            this.fixTitleOffsetY = fixTitleOffsetY;
+            (this.$refs
+              .fixTitle as any).style.transform = `translateY(${fixTitleOffsetY}px)`;
             return;
           }
         }
