@@ -35,6 +35,7 @@
           {{ letter }}
         </li>
       </ul>
+      <div class="fix-title" v-show="fixTitle">{{ fixTitle }}</div>
     </div>
   </div>
 </template>
@@ -59,6 +60,8 @@ export default class Singer extends Vue {
 
   moveOffsetY = 0;
 
+  scrollY = 0;
+
   get letters() {
     const keys = ['热'];
     for (let i = 65; i < 91; i += 1) {
@@ -67,6 +70,11 @@ export default class Singer extends Vue {
     }
     keys.push('#');
     return keys;
+  }
+
+  get fixTitle() {
+    if (this.scrollY >= 0) return '';
+    return this.letters[this.currentIndex];
   }
 
   @Getter('artistList') artistList;
@@ -94,6 +102,7 @@ export default class Singer extends Vue {
   mounted() {
     this.$nextTick(() => {
       (this.$refs.scrollview as any).scrolling((y) => {
+        this.scrollY = y;
         // 处理第一个区域
         if (y >= 0) {
           this.currentIndex = 0;
@@ -200,6 +209,17 @@ export default class Singer extends Vue {
           @include font_active_color();
         }
       }
+    }
+    .fix-title {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      padding: 10px 20px;
+      box-sizing: border-box;
+      @include font_size($font_medium);
+      color: #fff;
+      @include bg_color();
     }
   }
 }
