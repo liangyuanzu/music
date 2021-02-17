@@ -1,12 +1,13 @@
 <template>
   <div class="singer">
     <div class="singer-wrapper">
-      <ScrollView>
+      <ScrollView ref="scrollview">
         <ul class="list-wrapper">
           <li
             class="list-group"
             v-for="(item, index) in artistList"
             :key="index"
+            ref="group"
           >
             <h2 class="group-title">{{ letters[index] }}</h2>
             <ul>
@@ -22,12 +23,22 @@
           </li>
         </ul>
       </ScrollView>
+      <ul class="list-letters">
+        <li
+          v-for="(letter, index) in letters"
+          :key="letter"
+          :class="{ active: currentIndex === index }"
+          @click.stop="letterDown(index)"
+        >
+          {{ letter }}
+        </li>
+      </ul>
     </div>
   </div>
 </template>
 
 <script lang='ts'>
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 import { Getter, Action } from 'vuex-class';
 import ScrollView from '../components/ScrollView.vue';
 
@@ -38,6 +49,10 @@ import ScrollView from '../components/ScrollView.vue';
   },
 })
 export default class Singer extends Vue {
+  groupsTop = [];
+
+  currentIndex = 0;
+
   get letters() {
     const keys = ['热'];
     for (let i = 65; i < 91; i += 1) {
@@ -52,6 +67,13 @@ export default class Singer extends Vue {
 
   @Action('setArtistList') setArtistList;
 
+  @Watch('artistList')
+  onArtistListChanged() {
+    this.$nextTick(() => {
+      this.groupsTop = (this.$refs.group as any).map((i) => i.offsetTop);
+    });
+  }
+
   created() {
     const letters = [...this.letters];
     letters.splice(0, 1, '-1');
@@ -61,6 +83,12 @@ export default class Singer extends Vue {
       return { initial, limit: 10 };
     });
     this.setArtistList(list);
+  }
+
+  letterDown(index: number) {
+    this.currentIndex = index;
+    const offsetY = this.groupsTop[index];
+    (this.$refs.scrollview as any).scrollTo(0, -offsetY);
   }
 }
 </script>
@@ -107,6 +135,21 @@ export default class Singer extends Vue {
             align-items: center;
             margin-left: 20px;
           }
+        }
+      }
+    }
+    .list-letters {
+      position: fixed;
+      right: 10px;
+      top: 60%;
+      transform: translateY(-50%);
+      li {
+        @include font_color();
+        @include font_size($font_medium_s);
+        padding: 3px 0;
+        text-align: center;
+        &.active {
+          @include font_active_color();
         }
       }
     }
