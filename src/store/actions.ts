@@ -53,8 +53,7 @@ export default {
 
   async getNewSongData({ commit }, limit?: number) {
     const { result: songs } = await getNewSong(limit);
-    const list: any = [];
-    songs.forEach((val) => {
+    const list = songs.map((val) => {
       const obj: any = {};
       obj.id = val.id;
       obj.name = val.name;
@@ -68,7 +67,7 @@ export default {
         }
       });
       obj.singer = singer;
-      list.push(obj);
+      return obj;
     });
     commit(SET_NEW_SONGS, list);
   },
@@ -105,12 +104,12 @@ export default {
 
   async setSongDetail({ commit }, ids: Array<number>) {
     const { songs } = await getSongDetail(ids.join(','));
-    const list: any = [];
-    songs.forEach((val) => {
+    const list = songs.map((val) => {
       const obj: any = {};
       obj.id = val.id;
       obj.url = `https://music.163.com/song/media/outer/url?id=${val.id}.mp3`;
       obj.name = val.name;
+      obj.picUrl = val.al.picUrl;
       let singer = '';
       val.ar.forEach((item, index) => {
         if (index === 0) {
@@ -120,8 +119,7 @@ export default {
         }
       });
       obj.singer = singer;
-      obj.picUrl = val.al.picUrl;
-      list.push(obj);
+      return obj;
     });
     commit(SET_SONG_DETAIL, list);
   },
