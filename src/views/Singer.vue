@@ -28,7 +28,9 @@
           v-for="(letter, index) in letters"
           :key="letter"
           :class="{ active: currentIndex === index }"
-          @click.stop="letterDown(index)"
+          :data-index="index"
+          @touchstart.stop.prevent="touchstart"
+          @touchmove.stop.prevent="touchmove"
         >
           {{ letter }}
         </li>
@@ -52,6 +54,10 @@ export default class Singer extends Vue {
   groupsTop = [];
 
   currentIndex = 0;
+
+  beginOffsetY = 0;
+
+  moveOffsetY = 0;
 
   get letters() {
     const keys = ['热'];
@@ -85,10 +91,29 @@ export default class Singer extends Vue {
     this.setArtistList(list);
   }
 
-  letterDown(index: number) {
+  private letterDown(index: number) {
     this.currentIndex = index;
     const offsetY = this.groupsTop[index];
     (this.$refs.scrollview as any).scrollTo(0, -offsetY);
+  }
+
+  touchstart(e) {
+    const index = +e.target.dataset.index;
+    this.letterDown(index);
+    this.beginOffsetY = e.touches[0].pageY;
+  }
+
+  touchmove(e) {
+    this.moveOffsetY = e.touches[0].pageY;
+    const offsetY =
+      (this.moveOffsetY - this.beginOffsetY) / e.target.offsetHeight;
+    let index = +e.target.dataset.index + Math.floor(offsetY);
+    if (index < 0) {
+      index = 0;
+    } else if (index > this.letters.length - 1) {
+      index = this.letters.length - 1;
+    }
+    this.letterDown(index);
   }
 }
 </script>
