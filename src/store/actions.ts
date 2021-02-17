@@ -9,8 +9,10 @@ import {
   getSongLyric,
   getAllArtists,
   getArtistSongs,
+  getTopListDetail,
 } from '@/api/index';
-import { parseLyric } from '@/helpers';
+import { parseLyric, deepClone } from '@/helpers';
+import config from '@/config/config';
 import {
   SET_BANNERS,
   SET_PERSONALIZED,
@@ -35,6 +37,7 @@ import {
   SET_HISTORY_LIST,
   SET_ARTIST_LIST,
   SET_ARTIST_SONGS,
+  SET_RANK_CATEGORY,
 } from './mutations-type';
 
 export default {
@@ -175,5 +178,21 @@ export default {
   async setArtistSongs({ commit }, id: number) {
     const { artist, hotSongs } = await getArtistSongs(id);
     commit(SET_ARTIST_SONGS, { artist, hotSongs });
+  },
+
+  async setRankCategory({ commit }) {
+    const { list } = await getTopListDetail();
+    const category = deepClone(config.category);
+    list.forEach((obj) => {
+      Object.keys(category).forEach((key) => {
+        for (let i = 0; i < category[key].length; i += 1) {
+          if (category[key][i].name === obj.name) {
+            category[key][i].rank = obj;
+            break;
+          }
+        }
+      });
+    });
+    commit(SET_RANK_CATEGORY, category);
   },
 };

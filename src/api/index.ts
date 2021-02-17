@@ -145,3 +145,10 @@ export function getArtistSongs(id: number): Promise<any> {
     },
   });
 }
+
+/**
+ * 所有榜单内容摘要
+ * */
+export function getTopListDetail(): Promise<any> {
+  return $request('/api/toplist/detail', {});
+}

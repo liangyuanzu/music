@@ -90,4 +90,8 @@ export default {
   artistSongs(state): Array<object> {
     return state.artistSongs;
   },
+
+  rankCategory(state): object {
+    return state.rankCategory;
+  },
 };
