@@ -86,4 +86,8 @@ export default {
   artistList(state): Array<object> {
     return state.artistList;
   },
+
+  artistSongs(state): Array<object> {
+    return state.artistSongs;
+  },
 };

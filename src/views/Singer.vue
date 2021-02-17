@@ -15,6 +15,7 @@
                 class="group-item"
                 v-for="artist in artistList[index]"
                 :key="artist.id"
+                @click.stop="selectSinger(artist.id)"
               >
                 <img v-lazy="artist.img1v1Url" alt="" />
                 <p>{{ artist.name }}</p>
@@ -39,6 +40,10 @@
         {{ fixTitle }}
       </div>
     </div>
+
+    <transition>
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 
@@ -175,6 +180,12 @@ export default class Singer extends Vue {
     }
     this.letterDown(index);
   }
+
+  selectSinger(id: number) {
+    this.$router.push({
+      path: `/singer/detail/${id}/singer`,
+    });
+  }
 }
 </script>
 
@@ -250,5 +261,24 @@ export default class Singer extends Vue {
       @include bg_color();
     }
   }
+}
+
+.v-enter {
+  transform: translateX(100%);
+}
+.v-enter-to {
+  transform: translateX(0%);
+}
+.v-enter-active {
+  transition: transform 0.5s;
+}
+.v-leave {
+  transform: translateX(0%);
+}
+.v-leave-to {
+  transform: translateX(100%);
+}
+.v-leave-active {
+  transition: transform 0.5s;
 }
 </style>

@@ -21,4 +21,5 @@ export default {
   favoriteList: [],
   historyList: [], // 播放历史
   artistList: [], // 歌手列表
+  artistSongs: [],
 };

@@ -21,6 +21,7 @@ import {
   SET_HISTORY_SONG,
   SET_HISTORY_LIST,
   SET_ARTIST_LIST,
+  SET_ARTIST_SONGS,
 } from './mutations-type';
 
 export default {
@@ -149,5 +150,9 @@ export default {
 
   [SET_ARTIST_LIST](state, list: Array<object>) {
     state.artistList = list;
+  },
+
+  [SET_ARTIST_SONGS](state, list: Array<object>) {
+    state.artistSongs = list;
   },
 };

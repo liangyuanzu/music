@@ -133,3 +133,15 @@ export function getAllArtists(list: Array<object>): Promise<any> {
       });
   });
 }
+
+/**
+ * 获取歌手单曲
+ * @param {number} id 歌手 id
+ * */
+export function getArtistSongs(id: number): Promise<any> {
+  return $request('/api/artists', {
+    params: {
+      id,
+    },
+  });
+}

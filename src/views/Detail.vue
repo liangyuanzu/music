@@ -34,9 +34,13 @@ export default class Detail extends Vue {
 
   @Getter('albumData') albumData;
 
+  @Getter('artistSongs') artistSongs;
+
   @Action('getDetailData') getDetail;
 
   @Action('getAlbumData') getAlbum;
+
+  @Action('setArtistSongs') setArtistSongs;
 
   async created() {
     switch (this.$route.params.type) {
@@ -55,6 +59,14 @@ export default class Detail extends Vue {
           title: this.albumData.album.name,
           img: this.albumData.album.picUrl,
           songs: this.albumData.songs,
+        };
+        break;
+      case 'singer':
+        await this.setArtistSongs(this.$route.params.id);
+        this.data = {
+          title: this.artistSongs.artist.name,
+          img: this.artistSongs.artist.picUrl,
+          songs: this.artistSongs.hotSongs,
         };
         break;
 

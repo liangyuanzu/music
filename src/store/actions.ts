@@ -8,6 +8,7 @@ import {
   getSongDetail,
   getSongLyric,
   getAllArtists,
+  getArtistSongs,
 } from '@/api/index';
 import { parseLyric } from '@/helpers';
 import {
@@ -33,6 +34,7 @@ import {
   SET_HISTORY_SONG,
   SET_HISTORY_LIST,
   SET_ARTIST_LIST,
+  SET_ARTIST_SONGS,
 } from './mutations-type';
 
 export default {
@@ -168,5 +170,10 @@ export default {
     const res = await getAllArtists(list);
     const artists = res.map((i) => i.artists);
     commit(SET_ARTIST_LIST, artists);
+  },
+
+  async setArtistSongs({ commit }, id: number) {
+    const { artist, hotSongs } = await getArtistSongs(id);
+    commit(SET_ARTIST_SONGS, { artist, hotSongs });
   },
 };
