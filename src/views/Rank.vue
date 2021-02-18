@@ -6,7 +6,11 @@
           <li v-for="(title, key) in rankCategory.titles" :key="title">
             <h3 class="group-title">{{ title }}</h3>
             <ul class="normal-group" v-if="title === '官方榜'">
-              <li v-for="item in rankCategory[key]" :key="item.rank.id">
+              <li
+                v-for="item in rankCategory[key]"
+                :key="item.rank.id"
+                @click.stop="selectedItem(item.rank.id)"
+              >
                 <div class="rank-left">
                   <img v-lazy="item.rank.coverImgUrl" alt="" />
                   <p>{{ item.rank.updateFrequency }}</p>
@@ -22,7 +26,11 @@
               </li>
             </ul>
             <ul class="other-group" v-else>
-              <li v-for="item in rankCategory[key]" :key="item.rank.id">
+              <li
+                v-for="item in rankCategory[key]"
+                :key="item.rank.id"
+                @click.stop="selectedItem(item.rank.id)"
+              >
                 <div class="rank-top">
                   <img v-lazy="item.rank.coverImgUrl" alt="" />
                   <p>{{ item.rank.updateFrequency }}</p>
@@ -36,6 +44,10 @@
         </ul>
       </ScrollView>
     </div>
+
+    <transition>
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 
@@ -57,6 +69,12 @@ export default class Rank extends Vue {
 
   created() {
     this.setRankCategory();
+  }
+
+  selectedItem(id: number) {
+    this.$router.push({
+      path: `/rank/detail/${id}/rank`,
+    });
   }
 }
 </script>
@@ -148,5 +166,24 @@ export default class Rank extends Vue {
       }
     }
   }
+}
+
+.v-enter {
+  transform: translateX(100%);
+}
+.v-enter-to {
+  transform: translateX(0%);
+}
+.v-enter-active {
+  transition: transform 0.5s;
+}
+.v-leave {
+  transform: translateX(0%);
+}
+.v-leave-to {
+  transform: translateX(100%);
+}
+.v-leave-active {
+  transition: transform 0.5s;
 }
 </style>

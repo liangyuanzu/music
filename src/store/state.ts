@@ -22,5 +22,6 @@ export default {
   historyList: [], // 播放历史
   artistList: [], // 歌手列表
   artistSongs: [],
-  rankCategory: {}  // 榜单分类
+  rankCategory: {},  // 榜单分类
+  topList: {} // 排行榜数据
 };

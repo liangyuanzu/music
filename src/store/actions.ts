@@ -38,6 +38,7 @@ import {
   SET_ARTIST_LIST,
   SET_ARTIST_SONGS,
   SET_RANK_CATEGORY,
+  SET_TOP_LIST,
 } from './mutations-type';
 
 export default {
@@ -194,5 +195,10 @@ export default {
       });
     });
     commit(SET_RANK_CATEGORY, category);
+  },
+
+  async setTopList({ commit }, id: number) {
+    const { playlist } = await getDetail(id);
+    commit(SET_TOP_LIST, playlist);
   },
 };

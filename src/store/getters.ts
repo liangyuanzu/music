@@ -94,4 +94,8 @@ export default {
   rankCategory(state): object {
     return state.rankCategory;
   },
+
+  topList(state): object {
+    return state.topList;
+  },
 };

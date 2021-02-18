@@ -23,6 +23,7 @@ import {
   SET_ARTIST_LIST,
   SET_ARTIST_SONGS,
   SET_RANK_CATEGORY,
+  SET_TOP_LIST,
 } from './mutations-type';
 
 export default {
@@ -159,5 +160,9 @@ export default {
 
   [SET_RANK_CATEGORY](state, category: object) {
     state.rankCategory = category;
+  },
+
+  [SET_TOP_LIST](state, topList: object) {
+    state.topList = topList;
   },
 };
