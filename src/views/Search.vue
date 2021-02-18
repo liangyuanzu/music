@@ -12,7 +12,11 @@
     <div class="search-suggest" v-show="keywords">
       <ScrollView>
         <ul>
-          <li v-for="song in searchList" :key="song.id">
+          <li
+            v-for="song in searchList"
+            :key="song.id"
+            @click.stop="selectMusic(song.id)"
+          >
             <img :src="searchImgUrl" alt="" />
             <p>{{ song.name }} - {{ song.ar[0].name }}</p>
           </li>
@@ -57,8 +61,20 @@ export default class Search extends Vue {
 
   @Action('setSearchList') setSearchList;
 
+  @Action('setFullScreen') setFullScreen;
+
+  @Action('setSongDetail') setSongDetail;
+
+  @Action('setCurrentIndex') setCurrentIndex;
+
   search() {
     this.setSearchList(this.keywords);
+  }
+
+  selectMusic(id: number) {
+    this.setFullScreen(true);
+    this.setSongDetail([id]);
+    this.setCurrentIndex(0);
   }
 }
 </script>
