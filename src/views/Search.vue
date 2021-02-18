@@ -107,6 +107,7 @@ export default class Search extends Vue {
       outline: none;
       background: transparent;
       @include font_size($font_medium);
+      width: 100%;
       height: 60px;
       margin-left: 20px;
     }
