@@ -35,12 +35,28 @@
         </li>
       </ul>
     </div>
+    <ul class="search-history">
+      <li
+        v-for="item in searchHistory"
+        :key="item"
+        @click.stop="selectHistory(item)"
+      >
+        <div class="history-left">
+          <img :src="timeImgUrl" alt="" />
+          <p>{{ item }}</p>
+        </div>
+        <div class="history-right">
+          <img @click.stop="delHistory(item)" :src="delImgUrl" alt="" />
+        </div>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script lang='ts'>
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 import { Getter, Action } from 'vuex-class';
+import { localStore } from '@/helpers';
 import config from '@/config/config';
 import ScrollView from '../components/ScrollView.vue';
 
@@ -67,7 +83,13 @@ import ScrollView from '../components/ScrollView.vue';
 export default class Search extends Vue {
   searchImgUrl = config.searchImgUrl;
 
+  timeImgUrl = config.timeImgUrl;
+
+  delImgUrl = config.delImgUrl;
+
   keywords = '';
+
+  searchHistory: string[] = [];
 
   @Getter('searchList') searchList;
 
@@ -83,23 +105,48 @@ export default class Search extends Vue {
 
   @Action('setSearchHots') setSearchHots;
 
+  @Watch('searchHistory')
+  onSearchHistoryChanged(list: Array<string>) {
+    localStore.set('searchHistory', list);
+  }
+
   created() {
     this.setSearchHots();
+    const searchHistory = localStore.get('searchHistory');
+    if (searchHistory) this.searchHistory = searchHistory;
   }
 
   search() {
-    this.setSearchList(this.keywords);
+    if (this.keywords) this.setSearchList(this.keywords);
   }
 
   selectMusic(id: number) {
     this.setFullScreen(true);
     this.setSongDetail([id]);
     this.setCurrentIndex(0);
+    if (this.searchHistory.includes(this.keywords)) {
+      this.searchHistory = this.searchHistory.filter(
+        (i) => i !== this.keywords
+      );
+    }
+    this.searchHistory.unshift(this.keywords);
+    this.keywords = '';
   }
 
   selectHot(name: string) {
     this.keywords = name;
     this.search();
+  }
+
+  delHistory(name: string) {
+    this.searchHistory = this.searchHistory.filter((i) => i !== name);
+  }
+
+  selectHistory(name: string) {
+    this.keywords = name;
+    this.search();
+    this.searchHistory = this.searchHistory.filter((i) => i !== name);
+    this.searchHistory.unshift(name);
   }
 }
 </script>
@@ -180,6 +227,35 @@ export default class Search extends Vue {
         @include font_color();
         @include font_size($font_medium_s);
         margin: 10px 20px;
+      }
+    }
+  }
+  .search-history {
+    margin-top: 20px;
+    li {
+      padding: 20px;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #ccc;
+      .history-left {
+        display: flex;
+        align-items: center;
+        img {
+          width: 40px;
+          height: 40px;
+        }
+        p {
+          margin-left: 20px;
+          @include font_color();
+          @include font_size($font_medium_s);
+        }
+      }
+      .history-right {
+        img {
+          width: 30px;
+          height: 30px;
+        }
       }
     }
   }
