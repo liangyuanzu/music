@@ -24,5 +24,6 @@ export default {
   artistSongs: [],
   rankCategory: {},  // 榜单分类
   topList: {}, // 排行榜数据
-  searchList: []
+  searchList: [],
+  searchHots: []
 };

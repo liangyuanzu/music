@@ -171,3 +171,10 @@ export function getSearchList({ keywords, limit = 30, offset = 0, type = 1 }): P
     },
   });
 }
+
+/**
+ * 热搜列表(简略)
+ * */
+export function getSearchHots(): Promise<any> {
+  return $request('/api/search/hot', {});
+}

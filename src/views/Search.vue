@@ -23,6 +23,18 @@
         </ul>
       </ScrollView>
     </div>
+    <div class="search-hot">
+      <h3>热门搜索</h3>
+      <ul>
+        <li
+          v-for="item in searchHots"
+          :key="item.first"
+          @click.stop="selectHot(item.first)"
+        >
+          {{ item.first }}
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -59,6 +71,8 @@ export default class Search extends Vue {
 
   @Getter('searchList') searchList;
 
+  @Getter('searchHots') searchHots;
+
   @Action('setSearchList') setSearchList;
 
   @Action('setFullScreen') setFullScreen;
@@ -66,6 +80,12 @@ export default class Search extends Vue {
   @Action('setSongDetail') setSongDetail;
 
   @Action('setCurrentIndex') setCurrentIndex;
+
+  @Action('setSearchHots') setSearchHots;
+
+  created() {
+    this.setSearchHots();
+  }
 
   search() {
     this.setSearchList(this.keywords);
@@ -75,6 +95,11 @@ export default class Search extends Vue {
     this.setFullScreen(true);
     this.setSongDetail([id]);
     this.setCurrentIndex(0);
+  }
+
+  selectHot(name: string) {
+    this.keywords = name;
+    this.search();
   }
 }
 </script>
@@ -134,6 +159,27 @@ export default class Search extends Vue {
         margin-left: 20px;
         @include font_color();
         @include font_size($font_medium);
+      }
+    }
+  }
+  .search-hot {
+    h3 {
+      @include font_color();
+      @include font_size($font_medium);
+      padding: 10px 20px;
+    }
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      li {
+        height: 60px;
+        line-height: 60px;
+        border: 1px solid #000;
+        border-radius: 30px;
+        padding: 0 20px;
+        @include font_color();
+        @include font_size($font_medium_s);
+        margin: 10px 20px;
       }
     }
   }

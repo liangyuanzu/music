@@ -25,6 +25,7 @@ import {
   SET_RANK_CATEGORY,
   SET_TOP_LIST,
   SET_SEARCH_LIST,
+  SET_SEARCH_HOTS,
 } from './mutations-type';
 
 export default {
@@ -169,5 +170,9 @@ export default {
 
   [SET_SEARCH_LIST](state, list: Array<object>) {
     state.searchList = list;
+  },
+
+  [SET_SEARCH_HOTS](state, hots: Array<object>) {
+    state.searchHots = hots;
   },
 };

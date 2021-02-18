@@ -102,4 +102,8 @@ export default {
   searchList(state): Array<object> {
     return state.searchList;
   },
+
+  searchHots(state): Array<object> {
+    return state.searchHots;
+  },
 };

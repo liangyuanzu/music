@@ -11,6 +11,7 @@ import {
   getArtistSongs,
   getTopListDetail,
   getSearchList,
+  getSearchHots,
 } from '@/api/index';
 import { parseLyric, deepClone } from '@/helpers';
 import config from '@/config/config';
@@ -41,6 +42,7 @@ import {
   SET_RANK_CATEGORY,
   SET_TOP_LIST,
   SET_SEARCH_LIST,
+  SET_SEARCH_HOTS,
 } from './mutations-type';
 
 export default {
@@ -209,5 +211,12 @@ export default {
       result: { songs },
     } = await getSearchList({ keywords });
     commit(SET_SEARCH_LIST, songs);
+  },
+
+  async setSearchHots({ commit }) {
+    const {
+      result: { hots },
+    } = await getSearchHots();
+    commit(SET_SEARCH_HOTS, hots);
   },
 };

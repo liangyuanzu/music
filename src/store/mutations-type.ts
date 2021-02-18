@@ -24,3 +24,4 @@ export const SET_ARTIST_SONGS = 'SET_ARTIST_SONGS';
 export const SET_RANK_CATEGORY = 'SET_RANK_CATEGORY';
 export const SET_TOP_LIST = 'SET_TOP_LIST';
 export const SET_SEARCH_LIST = 'SET_SEARCH_LIST';
+export const SET_SEARCH_HOTS = 'SET_SEARCH_HOTS';
