@@ -152,3 +152,22 @@ export function getArtistSongs(id: number): Promise<any> {
 export function getTopListDetail(): Promise<any> {
   return $request('/api/toplist/detail', {});
 }
+
+/**
+ * 搜索
+ *
+ * @param {string} keywords 关键词 (必选)
+ * @param {number} limit 返回数量 , 默认为 30
+ * @param {number} offset 偏移数量，用于分页，默认为 0
+ * @param {number} type 搜索类型，默认为 1。取值意义 : 1: 单曲, 10: 专辑, 100: 歌手, 1000: 歌单, 1002: 用户, 1004: MV, 1006: 歌词, 1009: 电台, 1014: 视频, 1018:综合
+ * */
+export function getSearchList({ keywords, limit = 30, offset = 0, type = 1 }): Promise<any> {
+  return $request('/api/cloudsearch', {
+    params: {
+      keywords,
+      limit,
+      offset,
+      type,
+    },
+  });
+}

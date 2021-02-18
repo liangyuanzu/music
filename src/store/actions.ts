@@ -10,6 +10,7 @@ import {
   getAllArtists,
   getArtistSongs,
   getTopListDetail,
+  getSearchList,
 } from '@/api/index';
 import { parseLyric, deepClone } from '@/helpers';
 import config from '@/config/config';
@@ -39,6 +40,7 @@ import {
   SET_ARTIST_SONGS,
   SET_RANK_CATEGORY,
   SET_TOP_LIST,
+  SET_SEARCH_LIST,
 } from './mutations-type';
 
 export default {
@@ -200,5 +202,12 @@ export default {
   async setTopList({ commit }, id: number) {
     const { playlist } = await getDetail(id);
     commit(SET_TOP_LIST, playlist);
+  },
+
+  async setSearchList({ commit }, keywords: string) {
+    const {
+      result: { songs },
+    } = await getSearchList({ keywords });
+    commit(SET_SEARCH_LIST, songs);
   },
 };

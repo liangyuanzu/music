@@ -98,4 +98,8 @@ export default {
   topList(state): object {
     return state.topList;
   },
+
+  searchList(state): Array<object> {
+    return state.searchList;
+  },
 };

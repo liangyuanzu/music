@@ -24,6 +24,7 @@ import {
   SET_ARTIST_SONGS,
   SET_RANK_CATEGORY,
   SET_TOP_LIST,
+  SET_SEARCH_LIST,
 } from './mutations-type';
 
 export default {
@@ -164,5 +165,9 @@ export default {
 
   [SET_TOP_LIST](state, topList: object) {
     state.topList = topList;
+  },
+
+  [SET_SEARCH_LIST](state, list: Array<object>) {
+    state.searchList = list;
   },
 };

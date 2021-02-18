@@ -23,5 +23,6 @@ export default {
   artistList: [], // 歌手列表
   artistSongs: [],
   rankCategory: {},  // 榜单分类
-  topList: {} // 排行榜数据
+  topList: {}, // 排行榜数据
+  searchList: []
 };

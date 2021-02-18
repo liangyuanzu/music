@@ -2,14 +2,19 @@
   <div class="search">
     <div class="search-box">
       <img :src="searchImgUrl" alt="" />
-      <input type="text" placeholder="搜索歌曲、歌手、专辑" v-model="keyword" />
+      <input
+        type="text"
+        placeholder="搜索歌曲、歌手、专辑"
+        v-model="keywords"
+        v-debounce="search"
+      />
     </div>
-    <div class="search-suggest" v-show="keyword">
+    <div class="search-suggest" v-show="keywords">
       <ScrollView>
         <ul>
-          <li>
+          <li v-for="song in searchList" :key="song.id">
             <img :src="searchImgUrl" alt="" />
-            <p>演员 - 薛之谦</p>
+            <p>{{ song.name }} - {{ song.ar[0].name }}</p>
           </li>
         </ul>
       </ScrollView>
@@ -19,6 +24,7 @@
 
 <script lang='ts'>
 import { Component, Vue } from 'vue-property-decorator';
+import { Getter, Action } from 'vuex-class';
 import config from '@/config/config';
 import ScrollView from '../components/ScrollView.vue';
 
@@ -27,11 +33,33 @@ import ScrollView from '../components/ScrollView.vue';
   components: {
     ScrollView,
   },
+  // 自定义局部指令
+  directives: {
+    debounce: {
+      inserted(el, binding) {
+        let timer;
+        el.addEventListener('input', () => {
+          if (timer) clearTimeout(timer);
+          timer = setTimeout(() => {
+            binding.value();
+          }, 500);
+        });
+      },
+    },
+  },
 })
 export default class Search extends Vue {
   searchImgUrl = config.searchImgUrl;
 
-  keyword = '';
+  keywords = '';
+
+  @Getter('searchList') searchList;
+
+  @Action('setSearchList') setSearchList;
+
+  search() {
+    this.setSearchList(this.keywords);
+  }
 }
 </script>
 
