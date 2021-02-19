@@ -1,13 +1,27 @@
 import axios from 'axios';
+import Vue from 'vue';
 
+let count = 0;
 axios.interceptors.request.use(
-  (config: any) => config,
-  (error: any) => Promise.reject(error)
+  (config: any) => {
+    count += 1;
+    (Vue as any).showLoading();
+    return config;
+  },
+  (error: any) => {
+    (Vue as any).hiddenLoading();
+    return Promise.reject(error);
+  }
 );
 
 axios.interceptors.response.use(
-  (response: any) => response,
+  (response: any) => {
+    count -= 1;
+    if (count === 0) (Vue as any).hiddenLoading();
+    return response;
+  },
   (err: any) => {
+    (Vue as any).hiddenLoading();
     const error = err;
     if (error && error.response) {
       switch (error.response.status) {

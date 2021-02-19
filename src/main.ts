@@ -1,17 +1,22 @@
 import Vue from 'vue';
 import fastclick from 'fastclick';
 import VueLazyload from 'vue-lazyload';
+import Loading from './plugin/loading/index';
 import App from './App.vue';
 import router from './router';
 import store from './store';
 import './assets/css/base.scss';
 
+fastclick.attach(document.body);
+Vue.config.productionTip = false;
+
 Vue.use(VueLazyload, {
   loading: require('./assets/images/loading.png'),
 });
 
-fastclick.attach(document.body);
-Vue.config.productionTip = false;
+Vue.use(Loading, {
+  title: '正在加载...',
+});
 
 new Vue({
   router,
