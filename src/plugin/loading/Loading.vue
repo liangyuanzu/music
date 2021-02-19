@@ -37,7 +37,7 @@ export default class Loading extends Vue {
     border-radius: 50%;
     border: 5px solid #fff;
     margin: 20px auto;
-    border-right-color: #409eff;
+    @include border_right_color();
     animation: loading 2s linear infinite;
   }
   .title {

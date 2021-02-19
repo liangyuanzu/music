@@ -95,6 +95,18 @@
   }
 }
 
+@mixin border_right_color() {
+  border-right-color: $border-color-theme;
+
+  [data-theme=theme1] & {
+    border-right-color: $border-color-theme1;
+  }
+
+  [data-theme=theme2] & {
+    border-right-color: $border-color-theme2;
+  }
+}
+
 @mixin bg_img($url) {
   [data-theme=theme] & {
     background-image: url($url + '_163.png');
