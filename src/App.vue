@@ -3,7 +3,9 @@
     <MainHeader></MainHeader>
     <Tabbar></Tabbar>
     <Player></Player>
-    <router-view></router-view>
+    <keep-alive include="Singer,Search">
+      <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
 
