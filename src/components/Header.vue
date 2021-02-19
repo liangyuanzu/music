@@ -1,13 +1,17 @@
 <template>
   <div class="header" @click="changeTheme">
-    <div class="left"></div>
-    <div class="title">网易云音乐</div>
-    <div class="right" @click.stop="accountClick"></div>
+    <div class="left">
+      <slot name="left"></slot>
+    </div>
+    <slot name="center"></slot>
+    <div class="right">
+      <slot name="right"></slot>
+    </div>
   </div>
 </template>
 
 <script lang='ts'>
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Prop } from 'vue-property-decorator';
 
 @Component({
   name: 'Header',
@@ -17,7 +21,10 @@ export default class Header extends Vue {
 
   index = 0;
 
+  @Prop({ default: false }) readonly isChangeTheme: boolean;
+
   changeTheme() {
+    if (!this.isChangeTheme) return;
     this.index += 1;
     if (this.index >= this.themes.length) this.index = 0;
     document.documentElement.setAttribute(
@@ -25,16 +32,12 @@ export default class Header extends Vue {
       this.themes[this.index]
     );
   }
-
-  accountClick() {
-    this.$router.push('/account');
-  }
 }
 </script>
 
 <style lang='scss' scoped>
-@import '../assets/css/variable';
-@import '../assets/css/mixin';
+@import '@/assets/css/mixin';
+@import '@/assets/css/variable';
 
 .header {
   width: 100%;
@@ -48,22 +51,10 @@ export default class Header extends Vue {
     width: 84px;
     height: 84px;
     margin-top: 8px;
-  }
-
-  .left {
-    @include bg_img('../assets/images/logo');
-  }
-
-  .right {
-    @include bg_img('../assets/images/account');
-  }
-
-  .title {
-    text-align: center;
-    line-height: 100px;
-    color: #fff;
-    font-weight: bold;
-    @include font_size($font_medium);
+    * {
+      width: 100%;
+      height: 100%;
+    }
   }
 }
 </style>

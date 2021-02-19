@@ -1,7 +1,7 @@
 <template>
-  <div class="header">
-    <div class="left" @click.stop="$router.back(-1)"></div>
-    <ul class="title">
+  <Header class="header">
+    <div slot="left" class="header-left" @click.stop="$router.back(-1)"></div>
+    <ul slot="center" class="header-title">
       <li :class="{ active: switchNum === 0 }" @click.stop="switchItem(0)">
         我喜欢的
       </li>
@@ -9,15 +9,18 @@
         最近听的
       </li>
     </ul>
-    <div class="right"></div>
-  </div>
+  </Header>
 </template>
 
 <script lang='ts'>
 import { Component, Vue } from 'vue-property-decorator';
+import Header from '../Header.vue';
 
 @Component({
   name: 'AccountHeader',
+  components: {
+    Header,
+  },
 })
 export default class AccountHeader extends Vue {
   switchNum = 0;
@@ -34,28 +37,11 @@ export default class AccountHeader extends Vue {
 @import '@/assets/css/mixin';
 
 .header {
-  width: 100%;
-  height: 100px;
-  display: flex;
-  justify-content: space-between;
-  @include bg_color();
-
-  .left,
-  .right {
-    width: 84px;
-    height: 84px;
-    margin-top: 8px;
-  }
-
-  .left {
+  .header-left {
     @include bg_img('../../assets/images/back');
   }
 
-  .right {
-    @include bg_img('../../assets/images/more');
-  }
-
-  .title {
+  .header-title {
     display: flex;
     justify-content: center;
     align-items: center;

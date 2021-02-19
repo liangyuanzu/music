@@ -1,33 +1,22 @@
 <template>
-  <div class="header" @click="changeTheme">
-    <div class="left" @click.stop="$router.back(-1)"></div>
-    <div class="title">{{ title }}</div>
-    <div class="right"></div>
-  </div>
+  <Header class="header">
+    <div slot="left" class="header-left" @click.stop="$router.back(-1)"></div>
+    <p slot="center" class="header-title">{{ title }}</p>
+  </Header>
 </template>
 
 <script lang='ts'>
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import Header from '../Header.vue';
 
 @Component({
   name: 'SubHeader',
+  components: {
+    Header,
+  },
 })
 export default class SubHeader extends Vue {
-  themes = ['theme', 'theme1', 'theme2'];
-
-  index = 0;
-
   @Prop({ default: '' }) readonly title: string;
-
-  changeTheme() {
-    // eslint-disable-next-line no-plusplus
-    this.index++;
-    if (this.index >= this.themes.length) this.index = 0;
-    document.documentElement.setAttribute(
-      'data-theme',
-      this.themes[this.index]
-    );
-  }
 }
 </script>
 
@@ -36,28 +25,11 @@ export default class SubHeader extends Vue {
 @import '@/assets/css/mixin';
 
 .header {
-  width: 100%;
-  height: 100px;
-  display: flex;
-  justify-content: space-between;
-  @include bg_color();
-
-  .left,
-  .right {
-    width: 84px;
-    height: 84px;
-    margin-top: 8px;
-  }
-
-  .left {
+  .header-left {
     @include bg_img('../../assets/images/back');
   }
 
-  .right {
-    @include bg_img('../../assets/images/more');
-  }
-
-  .title {
+  .header-title {
     text-align: center;
     line-height: 100px;
     color: #fff;

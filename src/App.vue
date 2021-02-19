@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header></Header>
+    <MainHeader></MainHeader>
     <Tabbar></Tabbar>
     <Player></Player>
     <router-view></router-view>
@@ -8,14 +8,14 @@
 </template>
 
 <script>
-import Header from './components/Header.vue';
+import MainHeader from './components/MainHeader.vue';
 import Tabbar from './components/Tabbar.vue';
 import Player from './views/Player.vue';
 
 export default {
   name: 'app',
   components: {
-    Header,
+    MainHeader,
     Tabbar,
     Player,
   },
