@@ -9,7 +9,7 @@
       </swiper-slide>
       <swiper-slide class="lyric" ref="lyric">
         <ScrollView ref="scrollView">
-          <ul>
+          <ul @touchstart="touchstart" @touchend="touchend">
             <li
               v-for="(val, key) in currentLyric"
               :key="key"
@@ -53,6 +53,10 @@ export default class PlayerMiddle extends Vue {
 
   currentLineNum = '0';
 
+  touching = false;
+
+  timer: any = null;
+
   get hasLyric() {
     if (Object.keys(this.currentLyric).length > 0) return true;
     return false;
@@ -87,6 +91,7 @@ export default class PlayerMiddle extends Vue {
     const lineNum = Math.floor(val);
     this.currentLineNum = this.getActiveLineNum(lineNum);
     // 歌词滚动同步
+    if (this.touching) return;
     this.$nextTick(() => {
       const currentLyricTop = (document as any).querySelector('.lyric .active')
         .offsetTop;
@@ -120,6 +125,18 @@ export default class PlayerMiddle extends Vue {
     }
     line -= 1;
     return this.getActiveLineNum(line);
+  }
+
+  touchstart() {
+    this.touching = true;
+    if (this.timer) clearTimeout(this.timer);
+  }
+
+  touchend() {
+    if (this.timer) clearTimeout(this.timer);
+    this.timer = setTimeout(() => {
+      this.touching = false;
+    }, 1000);
   }
 }
 </script>
