@@ -81,6 +81,19 @@ export default class Player extends Vue {
     };
   }
 
+  @Watch('currentSong')
+  onCurrentSongChanged() {
+    (this.$refs.audio as any).ondurationchange = () => {
+      this.setTotalTime((this.$refs.audio as any).duration);
+      if (this.isPlaying) {
+        (this.$refs.audio as any).play();
+        this.setHistorySong(this.currentSong);
+      } else {
+        (this.$refs.audio as any).pause();
+      }
+    };
+  }
+
   @Watch('currentTime')
   onCurrentTimeChanged(val: number) {
     (this.$refs.audio as any).currentTime = val;
