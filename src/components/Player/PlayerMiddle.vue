@@ -99,7 +99,7 @@ export default class PlayerMiddle extends Vue {
       const endScrollNum = Object.keys(this.currentLyric)[
         Object.keys(this.currentLyric).length - 5
       ];
-      if (this.currentLineNum >= endScrollNum) return;
+      if (+this.currentLineNum >= +endScrollNum) return;
       if (currentLyricTop > lyricHeight / 2) {
         (this.$refs.scrollView as any).scrollTo(
           0,
