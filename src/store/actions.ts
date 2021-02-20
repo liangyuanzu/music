@@ -135,11 +135,16 @@ export default {
   },
 
   async setSongLyric({ commit }, id: number) {
-    const {
-      lrc: { lyric },
-    } = await getSongLyric(id);
-    const obj = parseLyric(lyric);
-    commit(SET_SONG_LYRIC, obj);
+    const res = await getSongLyric(id);
+    if (res.lrc) {
+      const {
+        lrc: { lyric },
+      } = res;
+      const obj = parseLyric(lyric);
+      commit(SET_SONG_LYRIC, obj);
+    } else {
+      commit(SET_SONG_LYRIC, {});
+    }
   },
 
   setDelSong({ commit }, index?: number) {

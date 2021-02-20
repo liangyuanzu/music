@@ -53,8 +53,14 @@ export default class PlayerMiddle extends Vue {
 
   currentLineNum = '0';
 
+  get hasLyric() {
+    if (Object.keys(this.currentLyric).length > 0) return true;
+    return false;
+  }
+
   get firstLyric() {
-    return Object.values(this.currentLyric)[0];
+    if (this.hasLyric) return Object.values(this.currentLyric)[0];
+    return '';
   }
 
   @Prop({ default: 0, required: true }) curTime: number;
@@ -76,6 +82,7 @@ export default class PlayerMiddle extends Vue {
 
   @Watch('curTime')
   onCurTimeChanged(val: number) {
+    if (!this.hasLyric) return;
     // 高亮歌词同步
     const lineNum = Math.floor(val);
     this.currentLineNum = this.getActiveLineNum(lineNum);
@@ -98,7 +105,7 @@ export default class PlayerMiddle extends Vue {
 
   @Watch('currentLyric')
   onCurrentLyricChanged(lyric: object) {
-    this.currentLineNum = Object.keys(lyric)[0].toString();
+    if (this.hasLyric) this.currentLineNum = Object.keys(lyric)[0].toString();
   }
 
   getActiveLineNum(lineNum: number) {
