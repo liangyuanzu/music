@@ -58,6 +58,8 @@ export default class Player extends Vue {
 
   @Action('setHistoryList') setHistoryList;
 
+  @Action('setIsPlaying') setIsPlaying;
+
   @Watch('isPlaying')
   onIsPlayingChanged(val: boolean) {
     if (val) {
@@ -135,6 +137,7 @@ export default class Player extends Vue {
       const index = getRandomIntInclusive(0, this.songs.length - 1);
       this.setCurrentIndex(index);
     }
+    if (this.songs.length === 1) this.setIsPlaying(!this.isPlaying);
   }
 }
 </script>
