@@ -5,7 +5,7 @@
         <div class="cd-wrapper" ref="cdWrapper">
           <img :src="currentSong.picUrl" alt="" />
         </div>
-        <p>{{ firstLyric }}</p>
+        <p>{{ currentLightLyric }}</p>
       </swiper-slide>
       <swiper-slide class="lyric" ref="lyric">
         <ScrollView ref="scrollView">
@@ -62,8 +62,8 @@ export default class PlayerMiddle extends Vue {
     return false;
   }
 
-  get firstLyric() {
-    if (this.hasLyric) return Object.values(this.currentLyric)[0];
+  get currentLightLyric() {
+    if (this.hasLyric) return this.currentLyric[this.currentLineNum];
     return '';
   }
 
