@@ -50,6 +50,7 @@
 <script lang='ts'>
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { Getter, Action } from 'vuex-class';
+import MetaInfo from '../../vue-meta-info';
 import ScrollView from '../components/ScrollView.vue';
 
 @Component({
@@ -57,6 +58,7 @@ import ScrollView from '../components/ScrollView.vue';
   components: {
     ScrollView,
   },
+  metaInfo: MetaInfo.singer,
 })
 export default class Singer extends Vue {
   groupsTop = [];

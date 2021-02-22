@@ -13,6 +13,7 @@
 <script lang='ts'>
 import { Component, Vue } from 'vue-property-decorator';
 import { Getter, Action } from 'vuex-class';
+import MetaInfo from '../../vue-meta-info';
 import DetailHeader from '../components/Detail/DetailHeader.vue';
 import DetailTop from '../components/Detail/DetailTop.vue';
 import DetailBottom from '../components/Detail/DetailBottom.vue';
@@ -26,6 +27,7 @@ import ScrollView from '../components/ScrollView.vue';
     DetailBottom,
     ScrollView,
   },
+  metaInfo: MetaInfo.detail,
 })
 export default class Detail extends Vue {
   data = {};

@@ -58,6 +58,7 @@ import { Component, Vue, Watch } from 'vue-property-decorator';
 import { Getter, Action } from 'vuex-class';
 import { localStore } from '@/helpers';
 import config from '@/config/config';
+import MetaInfo from '../../vue-meta-info';
 import ScrollView from '../components/ScrollView.vue';
 
 @Component({
@@ -79,6 +80,7 @@ import ScrollView from '../components/ScrollView.vue';
       },
     },
   },
+  metaInfo: MetaInfo.search,
 })
 export default class Search extends Vue {
   searchImgUrl = config.searchImgUrl;

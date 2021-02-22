@@ -9,6 +9,7 @@
 
 <script lang='ts'>
 import { Component, Vue } from 'vue-property-decorator';
+import MetaInfo from '../../vue-meta-info';
 import AccountHeader from '../components/Account/AccountHeader.vue';
 import AccountBottom from '../components/Account/AccountBottom.vue';
 
@@ -18,6 +19,7 @@ import AccountBottom from '../components/Account/AccountBottom.vue';
     AccountHeader,
     AccountBottom,
   },
+  metaInfo: MetaInfo.account,
 })
 export default class Account extends Vue {
   switchNum = 0;

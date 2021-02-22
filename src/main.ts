@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import fastclick from 'fastclick';
 import VueLazyload from 'vue-lazyload';
+import MetaInfo from 'vue-meta-info';
 import Loading from './plugin/loading/index';
 import App from './App.vue';
 import router from './router';
@@ -14,6 +15,8 @@ Vue.use(VueLazyload, {
   loading: require('./assets/images/loading.png'),
 });
 
+Vue.use(MetaInfo);
+
 Vue.use(Loading, {
   title: '正在加载...',
 });
@@ -23,5 +26,5 @@ new Vue({
   store,
   render: (h) => h(App),
   // 预渲染
-  mounted: () => document.dispatchEvent(new Event("x-app-rendered")),
+  mounted: () => document.dispatchEvent(new Event('x-app-rendered')),
 }).$mount('#app');

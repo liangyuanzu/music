@@ -30,6 +30,7 @@
 <script lang='ts'>
 import { Component, Vue } from 'vue-property-decorator';
 import { Getter, Action } from 'vuex-class';
+import MetaInfo from '../../vue-meta-info';
 import Banner from '../components/Recommend/Banner.vue';
 import Personalized from '../components/Recommend/Personalized.vue';
 import NewSongs from '../components/Recommend/NewSongs.vue';
@@ -43,6 +44,7 @@ import ScrollView from '../components/ScrollView.vue';
     NewSongs,
     ScrollView,
   },
+  metaInfo: MetaInfo.recommend,
 })
 export default class Recommend extends Vue {
   @Getter('banners') banners;
