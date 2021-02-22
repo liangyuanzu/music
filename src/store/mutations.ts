@@ -100,6 +100,7 @@ export default {
       state.isFullScreen = false;
       state.isShowMiniPlayer = false;
       state.isShowListPlayer = false;
+      if (state.isPlaying) state.isPlaying = false;
     }
   },
 
