@@ -11,7 +11,13 @@
           :key="item.id"
           @click="selectItem(item.id)"
         >
-          <img v-lazy="item.picUrl" />
+          <div class="item-top">
+            <img v-lazy="item.picUrl" class="bg" />
+            <span class="play-count" v-if="item.playCount">
+              <img :src="playCountImgUrl" alt="" />
+              <span>{{ formatPlayCount(item.playCount) }}</span>
+            </span>
+          </div>
           <p>{{ item.name }}</p>
         </div>
       </div>
@@ -21,12 +27,15 @@
 
 <script lang='ts'>
 import { Component, Prop, Emit, Vue } from 'vue-property-decorator';
+import config from '@/config/config';
 
 @Component({
   name: 'Personalized',
 })
 export default class Personalized extends Vue {
   id: number;
+
+  playCountImgUrl = config.playCountImgUrl;
 
   @Prop({ default: [] }) readonly personalized: Array<object>;
 
@@ -45,6 +54,15 @@ export default class Personalized extends Vue {
   selectItem(id: number) {
     this.id = id;
     this.send();
+  }
+
+  formatPlayCount(count: number) {
+    if (count > 0 && count < 100000) return count;
+    if ((count / 10000) % 1 > 0) {
+      const num = +(count / 10000).toFixed(1);
+      return num % 1 === 0 ? `${num.toFixed(0)}万` : `${num}万`;
+    }
+    return `${(count / 10000).toFixed(0)}万`;
   }
 }
 </script>
@@ -82,11 +100,30 @@ export default class Personalized extends Vue {
     .item {
       width: 200px;
       padding: 20px 0;
-      img {
-        width: 200px;
-        height: 200px;
-        border-radius: 20px;
+      position: relative;
+      .item-top {
+        .bg {
+          width: 200px;
+          height: 200px;
+          border-radius: 20px;
+        }
+        .play-count {
+          position: absolute;
+          top: 20px;
+          right: 10px;
+          img {
+            width: 24px;
+            height: 24px;
+            vertical-align: middle;
+            margin-right: 5px;
+          }
+          span {
+            @include font_size($font_small);
+            color: #fff;
+          }
+        }
       }
+
       p {
         @include clamp(2);
         @include font_color();
