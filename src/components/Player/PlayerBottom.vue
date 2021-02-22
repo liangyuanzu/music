@@ -4,7 +4,12 @@
       <span ref="eleCurrentTime">00:00</span>
       <div class="progress-bar" @click="progressClick" ref="progressBar">
         <div class="progress-line" ref="progressLine">
-          <div class="progress-dot"></div>
+          <div
+            class="progress-dot"
+            @touchstart.stop.prevent="touchstart"
+            @touchend.stop.prevent="touchend"
+            @touchmove.stop.prevent="touchmove"
+          ></div>
         </div>
       </div>
       <span ref="eleTotalTime">00:00</span>
@@ -131,18 +136,35 @@ export default class PlayerBottom extends Vue {
     this.setFavoriteSong(this.currentSong);
   }
 
-  progressClick(e) {
+  progressChange(pageX: number) {
     // 计算进度条的位置
     const normalLeft = (this.$refs.progressBar as any).offsetLeft;
-    const eventLeft = e.pageX;
+    const eventLeft = pageX;
     const clickLeft = eventLeft - normalLeft;
     const progressWidth = (this.$refs.progressBar as any).offsetWidth;
+    if (clickLeft > progressWidth) return;
     const value = clickLeft / progressWidth;
     (this.$refs.progressLine as any).style.width = `${value * 100}%`;
 
     // 重新计算播放时间
     const currentTime = this.totalTime * value;
     this.setCurrentTime(currentTime);
+  }
+
+  progressClick(e) {
+    this.progressChange(e.pageX);
+  }
+
+  touchmove(e) {
+    this.progressChange(+e.touches[0].pageX.toFixed(0));
+  }
+
+  touchstart() {
+    if (this.isPlaying) (this.$parent.$parent.$refs.audio as any).pause();
+  }
+
+  touchend() {
+    if (this.isPlaying) (this.$parent.$parent.$refs.audio as any).play();
   }
 }
 </script>
@@ -171,7 +193,7 @@ export default class PlayerBottom extends Vue {
     }
     .progress-bar {
       width: 100%;
-      margin: 0 20px;
+      margin: 0 30px;
       height: 10px;
       background: #ccc;
       .progress-line {
