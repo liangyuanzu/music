@@ -37,6 +37,14 @@ module.exports = {
       useRenderEvent: true,
       headless: true,
       onlyProduction: true,
+      postProcess: (route) => {
+        // 预渲染内容写入之前的额外操作
+        const reg = /<meta name="viewport".*user-scalable=no">/gi;
+        const res = route.html.match(reg);
+        route.html = route.html.replace(res[1], '');
+
+        return route;
+      },
     },
   },
 };
