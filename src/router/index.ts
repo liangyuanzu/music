@@ -48,7 +48,7 @@ const routes: Array<RouteConfig> = [
 ];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: 'history', // 使用预渲染插件必须是 history 模式, 不能是 hash 模式
   base: process.env.BASE_URL,
   routes,
 });
