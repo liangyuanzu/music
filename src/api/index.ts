@@ -5,7 +5,7 @@ import { $request, $requestAll } from '@/helpers';
  * @param {number} type 0: pc 1: android 2: iphone 3: ipad
  * */
 export function getBanner(type: number): Promise<any> {
-  return $request('/api/banner', {
+  return $request('/banner', {
     params: {
       type,
     },
@@ -17,7 +17,7 @@ export function getBanner(type: number): Promise<any> {
  * @param {number} limit 取出数量 , 默认为 30
  * */
 export function getPersonalized(limit: number): Promise<any> {
-  return $request('/api/personalized', {
+  return $request('/personalized', {
     params: {
       limit,
     },
@@ -28,7 +28,7 @@ export function getPersonalized(limit: number): Promise<any> {
  * 获取最新专辑
  * */
 export function getNewAlbum(): Promise<any> {
-  return $request('/api/album/newest', {});
+  return $request('/album/newest', {});
 }
 
 /**
@@ -36,7 +36,7 @@ export function getNewAlbum(): Promise<any> {
  * @param {number} limit 取出数量 , 默认为 10
  * */
 export function getNewSong(limit?: number): Promise<any> {
-  return $request('/api/personalized/newsong', {
+  return $request('/personalized/newsong', {
     params: {
       limit,
     },
@@ -48,7 +48,7 @@ export function getNewSong(limit?: number): Promise<any> {
  * @param {number} id 歌单 id
  * */
 export function getDetail(id: number): Promise<any> {
-  return $request('/api/playlist/detail', {
+  return $request('/playlist/detail', {
     params: {
       id,
     },
@@ -60,7 +60,7 @@ export function getDetail(id: number): Promise<any> {
  * @param {number} id 专辑 id
  * */
 export function getAlbum(id: number): Promise<any> {
-  return $request('/api/album', {
+  return $request('/album', {
     params: {
       id,
     },
@@ -72,7 +72,7 @@ export function getAlbum(id: number): Promise<any> {
  * @param {string} ids 音乐 id (支持多个 id, 用 , 隔开)
  * */
 export function getSongDetail(ids: string): Promise<any> {
-  return $request('/api/song/detail', {
+  return $request('/song/detail', {
     params: {
       ids,
     },
@@ -84,7 +84,7 @@ export function getSongDetail(ids: string): Promise<any> {
  * @param {number} id 音乐 id
  * */
 export function getSongLyric(id: number): Promise<any> {
-  return $request('/api/lyric', {
+  return $request('/lyric', {
     params: {
       id,
     },
@@ -106,7 +106,7 @@ export function getArtistList({
   type = -1,
   area = -1,
 }): Promise<any> {
-  return $request('/api/artist/list', {
+  return $request('/artist/list', {
     params: {
       limit,
       offset,
@@ -139,7 +139,7 @@ export function getAllArtists(list: Array<object>): Promise<any> {
  * @param {number} id 歌手 id
  * */
 export function getArtistSongs(id: number): Promise<any> {
-  return $request('/api/artists', {
+  return $request('/artists', {
     params: {
       id,
     },
@@ -150,7 +150,7 @@ export function getArtistSongs(id: number): Promise<any> {
  * 所有榜单内容摘要
  * */
 export function getTopListDetail(): Promise<any> {
-  return $request('/api/toplist/detail', {});
+  return $request('/toplist/detail', {});
 }
 
 /**
@@ -162,7 +162,7 @@ export function getTopListDetail(): Promise<any> {
  * @param {number} type 搜索类型，默认为 1。取值意义 : 1: 单曲, 10: 专辑, 100: 歌手, 1000: 歌单, 1002: 用户, 1004: MV, 1006: 歌词, 1009: 电台, 1014: 视频, 1018:综合
  * */
 export function getSearchList({ keywords, limit = 30, offset = 0, type = 1 }): Promise<any> {
-  return $request('/api/cloudsearch', {
+  return $request('/cloudsearch', {
     params: {
       keywords,
       limit,
@@ -176,5 +176,5 @@ export function getSearchList({ keywords, limit = 30, offset = 0, type = 1 }): P
  * 热搜列表(简略)
  * */
 export function getSearchHots(): Promise<any> {
-  return $request('/api/search/hot', {});
+  return $request('/search/hot', {});
 }

@@ -1,4 +1,5 @@
 export default {
+  baseURL: 'https://musicapi.it666.top',
   mode: {
     // 播放模式
     loop: 0,

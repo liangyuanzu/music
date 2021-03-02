@@ -1,5 +1,6 @@
 import axios from 'axios';
 import Vue from 'vue';
+import defConfig from '@/config/config';
 
 let count = 0;
 axios.interceptors.request.use(
@@ -45,10 +46,11 @@ axios.interceptors.response.use(
   }
 );
 
+const isPro = process.env.NODE_ENV === 'production';
 export const $request = (url: string, Options?: any) =>
   new Promise((resolve, reject) => {
     axios({
-      baseURL: '/',
+      baseURL: isPro ? defConfig.baseURL : '/api',
       data: Options.data, // post 传参
       method: Options.method || 'GET',
       params: Options.params, // get 传参
