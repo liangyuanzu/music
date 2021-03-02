@@ -58,11 +58,20 @@ export default class Personalized extends Vue {
 
   formatPlayCount(count: number) {
     if (count > 0 && count < 100000) return count;
-    if ((count / 10000) % 1 > 0) {
-      const num = +(count / 10000).toFixed(1);
-      return num % 1 === 0 ? `${num.toFixed(0)}万` : `${num}万`;
+    if (count < 100000000) {
+      // 大于等于 10万 小于 1亿
+      if ((count / 10000) % 1 > 0) {
+        const num = Math.floor(+(count / 10000) * 10) / 10;
+        return num % 1 === 0 ? `${num.toFixed(0)}万` : `${num}万`;
+      }
+      return `${(count / 10000).toFixed(0)}万`;
     }
-    return `${(count / 10000).toFixed(0)}万`;
+    // 大于等于 1亿
+    if ((count / 100000000) % 1 > 0) {
+      const num = Math.floor(+(count / 100000000) * 10) / 10;
+      return num % 1 === 0 ? `${num.toFixed(0)}亿` : `${num}亿`;
+    }
+    return `${(count / 10000).toFixed(0)}亿`;
   }
 }
 </script>
